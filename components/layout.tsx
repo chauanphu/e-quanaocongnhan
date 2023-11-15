@@ -1,10 +1,14 @@
+import Navbar from "./Navbar";
+
  
 export default function Layout({ children }) {
   return (
-    <>
-      {/* <Navbar /> */}
-      <main>{children}</main>
-      {/* <Footer /> */}
-    </>
+    // Set container width to 80% of the screen
+    <div className='container mx-auto'>
+      <Navbar />
+      <main>
+        {children}
+      </main>
+    </div>
   )
 }
