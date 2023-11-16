@@ -33,6 +33,7 @@ nav.header__top {
     background-color: $color-primary-contrast;
     font-size: 14px;
     font-weight: 500;
+    padding: 1em 0;
     .container {
         display: flex;
         flex-direction: row;
@@ -44,9 +45,13 @@ nav.header__top {
       }
     }
     .info {
+      max-width: 50%;
+      @media screen and (max-width: $md) {
+        max-width: 100%;
+      }
       flex-wrap: wrap;
       li {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
     }
 
@@ -57,7 +62,7 @@ nav.navbar {
   // Align items to the center
   align-items: center;
   padding: 1rem;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 3em;
   @media screen and (max-width:$md) {

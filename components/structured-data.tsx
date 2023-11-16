@@ -1,17 +1,16 @@
 import Head from 'next/head';
 
 interface StructuredDataProps {
-  title?: string;
+  key: string;
   data: any;
 }
 
-export default function StructuredData({ title, data }: StructuredDataProps) {
+export default function StructuredData({ key='structured-data', data }: StructuredDataProps) {
   return (
     <Head>
       <script
         key="structured-data"
         type="application/ld+json"
-        title={title}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
       />
     </Head>
