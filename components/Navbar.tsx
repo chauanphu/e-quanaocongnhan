@@ -8,13 +8,12 @@ import home_icon from '../public/images/home-icon.svg'
 import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
 import StructuredData from './structured-data'
-import { promises as fs } from 'fs';
+import data from "../data.json"
 
 export default function Navbar({openSidebar} : {openSidebar: () => void}) {
   // Get active link
   const router = useRouter()
   const activeLink = router.pathname
-
   // Structured data
   const structuredData = {
     '@context': 'https://schema.org',
@@ -38,14 +37,15 @@ export default function Navbar({openSidebar} : {openSidebar: () => void}) {
             <ul className={styles.info}>
               <li>
                   <Image src={email_icon} alt="Icon" height={16} />
-                  bhldtranlinh@gmail.com
+                  {data['contact'].email}
               </li>
               <li>
                   <Image src={phone_icon} alt="Icon" height={16} />
-                  0945.316.280</li>
+                  {data['contact'].phone}
+              </li>
               <li>
                 <Image src={home_icon} alt="Icon" height={16} />
-                48/5 Thái Thị Giữ, xã Bà Điểm, huyện Hóc Môn, TP HCM
+                {data['contact'].address}
               </li>
             </ul>
             <ul className={styles.navbar__menu}>
@@ -85,15 +85,4 @@ export default function Navbar({openSidebar} : {openSidebar: () => void}) {
       </header>
     </>
   )
-}
-
-export async function getStaticProps() {
-  const file = await fs.readFile(process.cwd() + '/data.json', 'utf8');
-  const result = JSON.parse(file)
-  console.log(result)
-  return {
-    props: {
-      result
-    }
-  }
 }

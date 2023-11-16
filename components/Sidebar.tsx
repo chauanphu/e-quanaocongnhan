@@ -1,21 +1,16 @@
 import React from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
-
 // Icons
 import home_icon from '../public/images/home-icon.svg'
-import courseregis_icon from 'assets/images/Course.svg'
-import calendar_icon from 'assets/images/Calender.svg'
-import exam_icon from 'assets/images/Bookmark.svg'
-import fee_icon from 'assets/images/Money.svg'
-import program_icon from 'assets/images/Program.svg'
-import marks_icon from 'assets/images/ListCheck.svg'
-import prequesite_icon from 'assets/images/Layer.svg'
-import profile_icon from 'assets/images/Profile.svg'
+import zalo_icon from '../public/images/zalo-icon.svg'
+
+
 // Import styling
 import styles from '../styles/Sidebar.module.scss'
 // import User from 'models/User';
 import { useRouter } from 'next/router';
+import data from "../data.json"
 
 type SidebarProps = {
     open?: boolean;
@@ -55,6 +50,16 @@ const Sidebar: React.FC<SidebarProps> = ({ open = false, onSelection, handleClos
                             <Image src={page.image} alt='Icon'/>{page.name}
                         </Link>
                     ))}
+                </div>
+                {/* This is contact info */}
+                <div className={styles.bottom}>
+                    <h3>Liên hệ</h3>
+                    <Link href='tel:0945316280'>
+                        <Image src={home_icon} alt="Icon"/> {data['contact'].phone}
+                    </Link>
+                    <Link href='https://zalo.me/0945316280' rel="noopener noreferrer" target="_blank">
+                        <Image src={zalo_icon} height={20} alt="Icon"/> {data['contact'].phone}
+                    </Link>
                 </div>
             </div>
             {open && <div className={styles.sidebar__cover} onClick={handleClose} />}

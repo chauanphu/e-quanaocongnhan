@@ -6,7 +6,6 @@ const nextConfig = {
     locales: ['vi'],
     defaultLocale: 'vi',
   },
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
 

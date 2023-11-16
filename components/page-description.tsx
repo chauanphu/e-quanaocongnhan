@@ -14,7 +14,7 @@ export default function PageDescription({
     <Head key="page-description">
         
         <title>{title} - BHLĐ Trần Gia Phát</title>
-        <meta charSet='UTF-8'/>
+        <meta charSet='utf-8'/>
         <meta
             name="description" content={description} 
         />
