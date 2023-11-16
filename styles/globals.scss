@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "./variables.scss";
+
 html,
 body {
   padding: 0;
@@ -30,6 +31,9 @@ a {
 }
 
 .container {
-  // max-width: 80%;
-  background-color: red;
+  @media screen and (max-width: $sm) {
+    max-width: 90%;
+  }
+  max-width: $lg;
+  margin: 0 auto;
 }

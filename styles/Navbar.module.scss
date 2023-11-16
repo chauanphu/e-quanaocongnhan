@@ -1,44 +1,85 @@
-
 @import "./variables.scss";
-
-#nav-header {
-    max-width: $lg;
-    background-color: red;
+.header {
+    li {
+      display: flex;
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: row;
+    }
+    img {
+      margin-right: 5px;
+    }
+    ul.navbar__menu {
+      align-items: center;
+      margin-left: 2rem;
+      list-style: none;
+      @media (max-width: $md) {
+        display: none;
+      }
+      @media (max-width: $lg) {
+          margin-left: 0;
+          margin-top: 1rem;
+      }
+    
 }
-.navbar {
+}
+
+nav.header__top {
+    background-color: $color-primary-contrast;
+    font-size: 14px;
+    font-weight: 500;
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    ul.navbar__menu {
+      .active {
+        color: $color-primary;
+      }
+    }
+    .info {
+      flex-wrap: wrap;
+      li {
+        margin-bottom: 5px;
+      }
+    }
+
+}
+
+nav.navbar {
   display: flex;
-  justify-content: space-between;
+  // Align items to the center
   align-items: center;
   padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 3em;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .navbar__logo {
-    width: 100px;
-    height: auto;
-  }
-  
-  .navbar__links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1rem;
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
-
-    &:hover {
-        color: #007bff;
-    }
-
-    @media (max-width: 768px) {
-      margin-top: 1rem;
+    @media screen and (max-width: $md) {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
-
+  .navbar__toggle {
+    display: none;
+    // Remove border and add border-radius
+    border: none;
+    border-radius: 5px;
+    @media screen and (max-width: $md) {
+      display: block;
+      margin-top: 1em;
+    }
+  }
 }
