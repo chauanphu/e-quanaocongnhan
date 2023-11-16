@@ -16,7 +16,8 @@ export default function Home() {
   return (
     <>
       <PageDescription title='Trang chủ'/>
-      <h1>Home Page</h1>
+      {/* Add Banner */}
+
     </>
   )
 }

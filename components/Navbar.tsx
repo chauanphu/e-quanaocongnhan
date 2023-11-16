@@ -8,6 +8,7 @@ import home_icon from '../public/images/home-icon.svg'
 import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
 import StructuredData from './structured-data'
+import { promises as fs } from 'fs';
 
 export default function Navbar({openSidebar} : {openSidebar: () => void}) {
   // Get active link
@@ -29,7 +30,7 @@ export default function Navbar({openSidebar} : {openSidebar: () => void}) {
 
   return (
     <>
-      <StructuredData key='navigation-header' data={structuredData}/>
+      <StructuredData data={structuredData}/>
       <header className={styles.header}>
         {/* Header top */}
         <nav className={styles.header__top}>
@@ -84,4 +85,15 @@ export default function Navbar({openSidebar} : {openSidebar: () => void}) {
       </header>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const file = await fs.readFile(process.cwd() + '/data.json', 'utf8');
+  const result = JSON.parse(file)
+  console.log(result)
+  return {
+    props: {
+      result
+    }
+  }
 }

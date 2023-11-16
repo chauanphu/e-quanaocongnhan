@@ -28,21 +28,26 @@ const Sidebar: React.FC<SidebarProps> = ({ open = false, onSelection, handleClos
     const activeLink = router.pathname
     const pages = [
         {
-        "name": "Home Page",
+        "name": "Trang chủ",
         "link": "/",
+        "image": home_icon
+        },
+        {
+        "name": "Sản phẩm",
+        "link": "/san-pham",
         "image": home_icon
         }
     ]
     return (
         <>
             <div className={`${styles.sidebar} ${open ? styles.open : styles.close}`}>
-                <div className={styles.logo}><h3>Đồng phục Trần Gia Phát</h3></div>
+                <div className={styles.logo}><h2>Đồng phục Trần Gia Phát</h2></div>
                 <div className={styles.links}>
                     {pages.map((page, index) => (
                         <Link 
                             key={index} 
                             href={page.link} 
-                            className={`${activeLink === '/' ? styles.active : ''}`}
+                            className={`${activeLink === page.link ? styles.active : ''}`}
                             onClick={()=> {
                             // handleClose();
                             onSelection(page.name) 
