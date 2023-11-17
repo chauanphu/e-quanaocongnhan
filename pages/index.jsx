@@ -1,23 +1,18 @@
-import Head from 'next/head';
 import PageDescription from '../components/page-description';
-
-const HomePageHead = () => 
-<Head>
-  <title>Trang chủ - BHLĐ Trần Gia Phát</title>
-  <meta charSet='UTF-8'/>
-  <meta
-    name="description" content="Trần Gia Phát chuyên sản xuất quần áo công nhân, đồng phục theo yêu cầu" 
-  />
-  <meta name="keywords" content="Quần áo công nhân, đồng phục công nhân, Trần Gia Phát"/>
-</Head>
+import Banner from '../components/Banner';
+import Section from '../components/Section';
+import banner_1 from '../public/images/banner-1.webp';
+import team_icon from '../public/images/team.png';
 
 export default function Home() {
 
   return (
     <>
       <PageDescription title='Trang chủ'/>
-      {/* Add Banner */}
-
+      <Banner image={banner_1}/>
+      <Section title={"Giới thiệu"} image={team_icon} contrast_bg={true}>
+        Hello
+      </Section>
     </>
   )
 }

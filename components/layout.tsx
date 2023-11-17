@@ -19,7 +19,7 @@ export default function Layout({ children }) {
         handleClose={()=>setOpenSidebar(false)}
         onSelection={(page)=>handleSidebarSelection()}
       />
-      <main className='container'>
+      <main>
         {children}
       </main>
     </>
