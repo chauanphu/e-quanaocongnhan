@@ -8,16 +8,16 @@
   z-index: 999;
   // Set the background color to be white
   background-color: white;
-    li {
-      display: flex;
-      &:not(:last-child) {
-        margin-right: 1rem;
-      }
-    }
     
     ul {
         display: flex;
         flex-direction: row;
+        li {
+          display: flex;
+          &:not(:last-child) {
+            margin-right: 1rem;
+          }
+        }
     }
     img {
       margin-right: 5px;

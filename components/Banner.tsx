@@ -1,7 +1,7 @@
 
 import Image from 'next/image';
 
-export default function Banner ({image}) {
+export default function Banner ({image, alt}: {image: string, alt: string}) {
   return (
     <>
       <Image
@@ -10,7 +10,9 @@ export default function Banner ({image}) {
         height={0}
         sizes="100vw"
         style={{ width: '100%', height: 'auto' }} 
-        alt={'Banner'} />
+        alt={alt} 
+        priority={false}
+        placeholder='blur'/>
     </>
   );
 };

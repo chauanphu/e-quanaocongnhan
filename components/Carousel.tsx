@@ -1,5 +1,4 @@
 // components/ArticleCarousel.js
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Carousel.module.scss';
 import Link from 'next/link';
@@ -32,17 +31,16 @@ const Carousel = ({articles, seconds}) => {
 
   return (
     <div className={styles.carousel}>
-      <button className={styles.prevButton} onClick={prevArticle}>
+      <button type='button' className={styles.prevButton} onClick={prevArticle}>
       &#8592;
       </button>
       <div className={styles.articleContainer}>
-      <Link href="" className={`${styles.carouselItem}`}>          
-          <Image src='' alt='Image' layout='fill' objectFit='cover'/>
+      <Link href="#" className={`${styles.carouselItem}`}>          
           <h2>{articles[currentIndex].title}</h2>
           <p>{articles[currentIndex].description}</p>
         </Link>
       </div>
-      <button className={styles.nextButton} onClick={nextArticle}>
+      <button type='button' className={styles.nextButton} onClick={nextArticle}>
       &#8594;
       </button>
     </div>
