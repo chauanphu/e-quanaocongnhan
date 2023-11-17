@@ -1,12 +1,13 @@
 @import "./variables.scss";
 .section {
   padding: 20px;
-  margin-bottom: 20px;
+//   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-color: $color-primary-contrast;
-
+  &.active {
+    background-color: $color-primary-contrast;
+  } 
   // align section title center
     .section__title {
         text-align: center;

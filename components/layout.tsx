@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import CTO from "./CTO";
 
  
 export default function Layout({ children }) {
@@ -19,6 +20,7 @@ export default function Layout({ children }) {
         handleClose={()=>setOpenSidebar(false)}
         onSelection={(page)=>handleSidebarSelection()}
       />
+      <CTO />
       <main>
         {children}
       </main>

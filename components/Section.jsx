@@ -3,12 +3,12 @@ import styles from '../styles/Section.module.scss';
 
 export default function Section({ title, image, contrast_bg, children }) {
     return (        
-        <div className={`${styles.section}`}>
+        <div className={`${styles.section} ${contrast_bg ? styles.active : ''}`}>
             <h1 className={styles.section__title}>
-                <Image className={styles.section__icon} src={image} />
+                <Image className={styles.section__icon} src={image} height={25}/>
                 {title}
             </h1>
-            <div className={`${contrast_bg ? styles.active : ''} ${styles.wrapper}`}>
+            <div className={`${styles.wrapper}`}>
                 <section className={`${styles.section__content} container`}>
                     {children}
                 </section>
