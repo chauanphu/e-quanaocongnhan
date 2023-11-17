@@ -1,5 +1,13 @@
 @import "./variables.scss";
 .header {
+  // Add a box shadow
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  // add sticky position
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  // Set the background color to be white
+  background-color: white;
     li {
       display: flex;
       &:not(:last-child) {

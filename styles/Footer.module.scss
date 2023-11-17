@@ -1,0 +1,41 @@
+
+@import './variables.scss';
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  color: white;
+
+
+  &__logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  &__contents{
+    background-color: $color-primary-dark;
+    width: 100%;
+  }
+  &__copy_rights{
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+  &__links {
+    display: flex;
+    gap: 20px;
+    
+    a {
+      color: #fff;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
