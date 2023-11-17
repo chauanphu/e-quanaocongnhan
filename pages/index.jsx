@@ -7,7 +7,9 @@ import about_us_icon from '../public/images/about-us-icon.gif';
 import customer_icon from '../public/images/team.png';
 import cart_icon from '../public/images/cart-icon.gif';
 import articles_icon from '../public/images/news-icon.gif';
+import Image from 'next/image';
 
+import customers_baner from '../public/images/customers-banner.webp';
 import data from '../data.json';
 
 export default function Home() {
@@ -27,7 +29,7 @@ export default function Home() {
         <Carousel articles={articles} seconds={3}/>
       </Section>
       <Section title={"Khách hàng"} image={customer_icon}>
-        Hello
+        <Banner image={customers_baner}/>
       </Section>
     </>
   )

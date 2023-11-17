@@ -12,35 +12,10 @@
     .section__title {
         text-align: center;
         color: $color-primary-dark;
-        // &::before, 
-        // &::after {
-        //     // content: "";
-        //     // display: inline-block;
-        //     // width: 2em;
-        //     // height: 3px;
-        //     // background-color: $color-primary-dark;
-        //     // vertical-align: middle;
-        //     // margin: 0 20px;
-        //     box-sizing: border-box;
-        //     display: block;
-        //     height: 1px;
-        //     position: absolute;
-        //     left: 0px;
-        //     right: 0px;
-        //     top: 39px;
-        //     width: 1170px;
-        //     z-index: 1;
-        //     content: "";
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-            
-        //     background-attachment: scroll;
-        //     background-clip: border-box;
-        //     background-color: $color-primary-dark;
-        //     background-origin: padding-box;
-        //     background-position-x: 0%;
-        //     background-position-y: 0%;
-        //     background-size: auto;
-        // }
         & .section__icon {
             // Add styling for
             margin-right: 10px;
