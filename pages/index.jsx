@@ -1,7 +1,10 @@
 import PageDescription from '../components/page-description';
+import Link from 'next/link';
 import Banner from '../components/Banner';
 import Section from '../components/Section';
 import Carousel from '../components/Carousel';
+import ProductCard from '../components/ProductCard';
+
 import banner_1 from '../public/images/banner-1.webp';
 import about_us_icon from '../public/images/about-us-icon.gif';
 import customer_icon from '../public/images/team.png';
@@ -13,16 +16,17 @@ import data from '../data.json';
 
 export default function Home() {
   const articles = data.articles;
-
+  const products = data.products;
+  const category = data.category[0];
   return (
     <>
-      <PageDescription title='Trang chủ'/>
+      <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
       <Banner image={banner_1} alt='Banner'/>
       <Section title={"Giới thiệu"} image={about_us_icon} contrast_bg={true}>
         Hello
       </Section>
       <Section title={"Sản phẩm"} image={cart_icon}>
-        Hello
+        <ProductCard category={category} products={products}/>
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
         <Carousel articles={articles} seconds={3}/>
