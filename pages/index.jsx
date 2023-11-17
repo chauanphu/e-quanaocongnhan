@@ -1,13 +1,17 @@
 import PageDescription from '../components/page-description';
 import Banner from '../components/Banner';
 import Section from '../components/Section';
+import Carousel from '../components/Carousel';
 import banner_1 from '../public/images/banner-1.webp';
 import about_us_icon from '../public/images/about-us-icon.gif';
 import customer_icon from '../public/images/team.png';
 import cart_icon from '../public/images/cart-icon.gif';
 import articles_icon from '../public/images/news-icon.gif';
 
+import data from '../data.json';
+
 export default function Home() {
+  const articles = data.articles;
 
   return (
     <>
@@ -20,7 +24,7 @@ export default function Home() {
         Hello
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
-        Hello
+        <Carousel articles={articles} seconds={3}/>
       </Section>
       <Section title={"Khách hàng"} image={customer_icon}>
         Hello

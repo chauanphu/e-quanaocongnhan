@@ -1,0 +1,45 @@
+// styles/ArticleCarousel.module.scss
+@import './variables.scss';
+.carousel {
+  overflow: auto;
+  width: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+    
+  }
+}
+
+.prevButton,
+.nextButton {
+  background-color: $color-secondary-dark;
+  border-radius: 50%;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.articleContainer {
+  flex: 1;
+  padding: 0 20px;
+  max-width: 500px;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: #0056b3;
+}
