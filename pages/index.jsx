@@ -1,8 +1,7 @@
 import PageDescription from '../components/page-description';
-import Link from 'next/link';
 import Banner from '../components/Banner';
 import Section from '../components/Section';
-import Carousel from '../components/Carousel';
+import ArticleCarousel from '../components/ArticleCarousel';
 import ProductCard from '../components/ProductCard';
 
 import banner_1 from '../public/images/banner-1.webp';
@@ -30,7 +29,7 @@ export default function Home() {
         <ProductCard category={category} products={products}/>
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
-        <Carousel articles={articles} seconds={3}/>
+        <ArticleCarousel articles={articles} seconds={3}/>
       </Section>
       <Section title={"Khách hàng"} image={customer_icon}>
         <Banner image={customers_baner} alt="Customer Banner"/>
