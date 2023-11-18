@@ -11,7 +11,7 @@ const Footer = () => {
                   <h2 className={styles.title}>CÔNG TY TNHH SX TM TRẦN GIA PHÁT</h2>
                   <ul className={styles.content}>
                     <li>
-                      <h3>CHI NHÁNH HÓC MÔN</h3>
+                      <h3>TRỤ SỞ CHÍNH</h3>
                       <p>48/5 Thái Thị Giữ, xã Bà Điểm huyện Hóc Môn</p>
                       <p>Mrs Linh: 0945 316 280</p>
                     </li>

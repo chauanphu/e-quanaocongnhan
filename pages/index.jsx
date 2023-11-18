@@ -10,6 +10,7 @@ import about_us_icon from '../public/images/about-us-icon.gif';
 import customer_icon from '../public/images/team.png';
 import cart_icon from '../public/images/cart-icon.gif';
 import articles_icon from '../public/images/news-icon.gif';
+import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
 import data from '../data.json';
@@ -23,7 +24,7 @@ export default function Home() {
       <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
       <Banner image={banner_1} alt='Banner'/>
       <Section title={"Giới thiệu"} image={about_us_icon} contrast_bg={true}>
-        Hello
+        <Banner image={process_banner} alt="Qui trình đặt hàng"/>
       </Section>
       <Section title={"Sản phẩm"} image={cart_icon}>
         <ProductCard category={category} products={products}/>
