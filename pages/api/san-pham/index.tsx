@@ -1,6 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import data from "data.json"
-import Category from 'interfaces/category';
 import prisma from 'lib/prisma';
 
 type ResponseData = {
