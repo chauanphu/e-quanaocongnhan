@@ -27,7 +27,6 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
     }],
   };
   
-
   return (
     <>
       <StructuredData data={structuredData}/>
@@ -70,7 +69,9 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
               {/* Add list of menu with active links */}
               <ul className={styles.navbar__menu}>
                   {categories && categories.map((category) => (
-                    <li key={category.id}><Link href={`/san-pham/${category.slug}`}></Link></li>
+                    <li key={category.id}>
+                      <Link href={`/san-pham/${category.slug}`}>{category.name}</Link>
+                    </li>
                   ))}
               </ul>
               <button className={styles.navbar__toggle} onClick={openSidebar}>

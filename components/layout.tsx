@@ -11,11 +11,11 @@ export default function Layout({ children }) {
   // Fetch categories from /api/categories
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('/api/san-pham/')
       .then(res => res.json())
-      .then(data => setCategories(data));
+      .then(data => setCategories(data['categories']));
   }, []);
-  
+
   const handleSidebarSelection = () => {
     setOpenSidebar(false);
   }

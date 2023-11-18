@@ -12,15 +12,10 @@ import articles_icon from '../public/images/news-icon.gif';
 import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
-import data from '../data.json';
-import prisma from '../lib/prisma';
-import Category from '../interfaces/category';
 
-export default function Home({ categories }: {categories: Category[]}) {
+export default function Home({}: {}) {
   // const articles = data.articles;
   // const products = data.products;
-  console.log(categories);
-  const category = data.category[0];
   return (
     <>
       <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
@@ -44,15 +39,9 @@ export default function Home({ categories }: {categories: Category[]}) {
 // Config as server side rendering
 export async function getServerSideProps() {
   // Query all Categories' names, ids, slugs
-  const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-    }
-  });
+  
   return {
-    props: {categories},
+    props: {},
     // revalidate: 10,
   };
 }

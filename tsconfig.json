@@ -5,6 +5,12 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      // add more paths as needed
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
