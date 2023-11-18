@@ -13,10 +13,13 @@ import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
 import data from '../data.json';
+import prisma from '../lib/prisma';
+import Category from '../interfaces/category';
 
-export default function Home() {
-  const articles = data.articles;
-  const products = data.products;
+export default function Home({ categories }: {categories: Category[]}) {
+  // const articles = data.articles;
+  // const products = data.products;
+  console.log(categories);
   const category = data.category[0];
   return (
     <>
@@ -26,10 +29,10 @@ export default function Home() {
         <Banner image={process_banner} alt="Qui trình đặt hàng"/>
       </Section>
       <Section title={"Sản phẩm"} image={cart_icon}>
-        <ProductCard category={category} products={products}/>
+        {/* <ProductCard category={category} products={}/> */}
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
-        <ArticleCarousel articles={articles} seconds={3}/>
+        {/* <ArticleCarousel articles={articles} seconds={3}/> */}
       </Section>
       <Section title={"Khách hàng"} image={customer_icon}>
         <Banner image={customers_baner} alt="Customer Banner"/>
@@ -40,9 +43,16 @@ export default function Home() {
 
 // Config as server side rendering
 export async function getServerSideProps() {
+  // Query all Categories' names, ids, slugs
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    }
+  });
   return {
-    props: {
-      // structuredData,
-    },
+    props: {categories},
+    // revalidate: 10,
   };
 }

@@ -9,8 +9,9 @@ import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
 import StructuredData from './structured-data'
 import data from "../data.json"
+import Category from '../interfaces/category'
 
-export default function Navbar({openSidebar} : {openSidebar: () => void}) {
+export default function Navbar({openSidebar, categories} : {openSidebar: () => void, categories: Category[]}) {
   // Get active link
   const router = useRouter()
   const activeLink = router.pathname
@@ -68,15 +69,9 @@ export default function Navbar({openSidebar} : {openSidebar: () => void}) {
               </div>
               {/* Add list of menu with active links */}
               <ul className={styles.navbar__menu}>
-                  <li>
-                    <Link href='/san-pham'>Đồng phục công nhân</Link>
-                  </li>
-                  <li>
-                    <Link href='/san-pham'>Áo thun đồng phục</Link>
-                  </li>
-                  <li>
-                    <Link href='/san-pham'>Thiết bị bảo hộ lao động</Link>
-                  </li>
+                  {categories && categories.map((category) => (
+                    <li key={category.id}><Link href={`/san-pham/${category.slug}`}></Link></li>
+                  ))}
               </ul>
               <button className={styles.navbar__toggle} onClick={openSidebar}>
                 <Image src={burger_icon} alt="Menu Icon" />

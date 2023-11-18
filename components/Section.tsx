@@ -1,7 +1,13 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import styles from '../styles/Section.module.scss';
 
-export default function Section({ title, image, contrast_bg, children }) {
+interface SectionProps {
+    title: string;
+    image: StaticImageData;
+    contrast_bg?: boolean;
+    children: React.ReactNode;
+}
+export default function Section({ title, image, contrast_bg, children }: SectionProps) {
     return (        
         <div className={`${styles.section} ${contrast_bg ? styles.active : ''}`}>
             <h1 className={styles.section__title}>

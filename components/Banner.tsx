@@ -1,7 +1,7 @@
 
 import Image from 'next/image';
 
-export default function Banner ({image, alt}: {image: string, alt: string}) {
+export default function Banner ({image, alt}: {image: any, alt: string}) {
   return (
     <>
       <Image
