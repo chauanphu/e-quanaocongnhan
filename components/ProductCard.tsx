@@ -36,6 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, category }) => {
                         <div className={styles.ProductCard}>
                             <meta itemProp="name" content={product.name} />
                             <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />
+                            <meta itemProp='description' content={product.short_description}/>
                             <Image className={styles.ProductCard__image} itemProp="image"
                             src={product.imageUrl}  
                             alt={product.name}
@@ -44,7 +45,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, category }) => {
                                 {product.name}
                             </h3>
                             <p className={styles.ProductCard__price}>{product.price.toLocaleString('en-US')} đ</p>
-                            <meta itemProp='description' content={product.short_description}/>
                             <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                                 <meta itemProp="priceCurrency" content="VND" />
                                 <meta itemProp="price" content={product.price.toString()} />
