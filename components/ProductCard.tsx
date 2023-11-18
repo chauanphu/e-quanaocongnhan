@@ -3,21 +3,10 @@ import React from 'react';
 import styles from '../styles/ProductCard.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-interface Product {
-    id: number;
-    sku: string;
-    name: string;
-    price: number;
-    imageUrl: string;
-    short_description: string;
-    brand: string;
-    // category: Category;
-}
-interface Category {
-    id: number;
-    name: string;
-    url: string;
-}
+
+import { Product, Category } from '@prisma/client';
+import path from 'path';
+
 interface ProductCardProps {
   products: Product[];
   category: Category;
@@ -26,21 +15,25 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ products, category }) => {
   return (
     <>
-        <Link href={'/san-pham/' + category.url} className={styles.title}>
+        <Link href={'/san-pham/' + category.slug} className={styles.title}>
             <h2>{category.name}</h2>
         </Link>
         <div className={styles.product__list}>
             {
                 products ? products.map((product) => (
-                    <Link key={product.id} href={'/san-pham/' + product.id} itemScope itemType="https://schema.org/Product">
+                    <Link key={product.id} href={path.join('    /san-pham', category.slug, product.slug)} itemScope itemType="https://schema.org/Product">
                         <div className={styles.ProductCard}>
                             <meta itemProp="name" content={product.name} />
                             <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />
-                            <meta itemProp='description' content={product.short_description}/>
-                            <Image className={styles.ProductCard__image} itemProp="image"
-                            src={product.imageUrl}  
-                            alt={product.name}
-                            width={20}/>
+                            <meta itemProp='description' content={product.short_description ? product.short_description : ''}/>
+                            <Image 
+                                className={styles.ProductCard__image} 
+                                itemProp="image"
+                                src={product.image ? '/api/images/san-pham/'+ product.image : '/images/placeholder.png'}  
+                                alt={product.name}
+                                width={150}
+                                height={150}
+                            />
                             <h3 className={styles.ProductCard__title} itemProp="name">
                                 {product.name}
                             </h3>
@@ -52,9 +45,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, category }) => {
                                 <meta itemProp="itemCondition" content="https://schema.org/NewCondition" />
                             </div>
                             <meta itemProp="sku" content={product.sku} />
-                            <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
+                            {/* <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
                                 <meta itemProp="name" content={product.brand} />
-                            </div>
+                            </div> */}
                         </div>
                     </Link>
                 )) : 

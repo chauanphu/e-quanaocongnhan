@@ -11,8 +11,7 @@ export default function Banner ({image, alt}: {image: any, alt: string}) {
         sizes="100vw"
         style={{ width: '100%', height: 'auto' }} 
         alt={alt} 
-        priority={false}
-        placeholder='blur'/>
+        priority={false}/>
     </>
   );
 };
