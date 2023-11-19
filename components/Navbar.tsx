@@ -9,9 +9,9 @@ import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
 import StructuredData from './structured-data'
 import data from "../data.json"
-import Category from '../interfaces/category'
+import { CategoryWithSub } from 'lib/prisma'
 
-export default function Navbar({openSidebar, categories} : {openSidebar: () => void, categories: Category[]}) {
+export default function Navbar({openSidebar, categories} : {openSidebar: () => void, categories: CategoryWithSub[]}) {
   // Get active link
   const router = useRouter()
   const activeLink = router.pathname

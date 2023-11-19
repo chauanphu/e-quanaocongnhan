@@ -3,13 +3,13 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import CTO from "./CTO";
 import Footer from "./Footer";
-import Category from '../interfaces/category'
-
+import { CategoryWithSub } from "lib/prisma";
 
 export default function Layout({ children }) {
   const [open_sidebar, setOpenSidebar] = useState(false);
   // Fetch categories from /api/categories
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryWithSub[]>([]);
+  
   useEffect(() => {
     fetch('/api/san-pham/')
       .then(res => res.json())
@@ -26,6 +26,7 @@ export default function Layout({ children }) {
         openSidebar={() => setOpenSidebar(true)} categories={categories}/>
       <Sidebar
         open={open_sidebar}
+        categories={categories}
         handleClose={()=>setOpenSidebar(false)}
         onSelection={(page)=>handleSidebarSelection()}
       />

@@ -5,6 +5,25 @@
     "email": "bhldtranlinh@gmail.com",
     "phone": "0945.316.280"
   },
+  "main-nav": [
+    {
+      "name": "Trang chủ",
+      "link": "/"
+    },
+    {
+      "name": "Giới thiệu",
+      "link": "/gioi-thieu/"
+    },
+    {
+      "name": "Sản phẩm",
+      "link": "/san-pham/",
+      "subPages": []
+    },
+    {
+      "name": "Blogs",
+      "link": "/blogs/"
+    }
+  ],
   "articles": [{
     "id": 1,
     "image": "/path/to/image1.jpg",
@@ -18,51 +37,5 @@
     "title": "Article 2",
     "description": "Short description for Article 2",
     "tags": ["Tag3", "Tag4"]
-  }],
-  "category": [
-    {
-      "id": 1,
-      "name": "Áo thun",
-      "url": "category-1"
-    },
-    {
-      "id": 2,
-      "name": "Category 2",
-      "url": "category-2"
-    },
-    {
-      "id": 3,
-      "name": "Category 3",
-      "url": "category-3"
-    }
-  ],
-  "products": [
-    {
-    "id": 1,
-    "name": "Product 1",
-    "price": 100000,
-    "image": "/path/to/image1.jpg",
-    "short_description": "Short description for Product 1"
-    },
-    {
-      "id": 2,
-      "name": "Product 1",
-      "price": 100000,
-      "short_description": "Short description for Product 1"
-    },
-    {
-      "id": 3,
-      "name": "Product 3",
-      "price": 150000,
-      "image": "/path/to/image3.jpg",
-      "short_description": "Short description for Product 1"
-    },
-    {
-      "id": 4,
-      "name": "Product 4",
-      "price": 200000,
-      "image": "/path/to/image4.jpg",
-      "short_description": "Short description for Product 1"
-    }
-  ]
+  }]
 }

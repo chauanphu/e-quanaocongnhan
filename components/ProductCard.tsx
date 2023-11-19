@@ -32,6 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, category, hasTitle=
                                 itemProp="image"
                                 src={product.image ? '/api/images/san-pham/'+ product.image : '/images/placeholder.png'}  
                                 alt={product.name}
+                                priority={false}
                                 width={150}
                                 height={150}
                             />
