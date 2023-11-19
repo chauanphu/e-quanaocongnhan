@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, category, hasTitle=
         <div className={styles.product__list}>
             {
                 products && products.length > 0 ? products.map((product) => (
-                    <Link key={product.id} href={`/san-phan/${category.slug}/${product.slug}`} itemScope itemType="https://schema.org/Product">
+                    <Link key={product.id} href={`/san-pham/${category.slug}/${product.slug}`} itemScope itemType="https://schema.org/Product">
                         <div className={styles.ProductCard}>
                             <meta itemProp="name" content={product.name} />
                             <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />
