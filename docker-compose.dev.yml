@@ -1,15 +1,13 @@
-
 version: '3'
 services:
-  mongodb:
-    container_name: db
-    image: mongo:latest
+  app:
+    build: .
     ports:
-      - 27017:27017
-    volumes:
-      - mongodb_data:/data/db
+      - "3000:3000"
     env_file:
-      - .env.local
-
-volumes:
-  mongodb_data:
+      - .env
+      
+    volumes:
+      - ./_images:/app/_image
+      - ./_posts:/app/_posts
+      - ./data.json:/app/data.json

@@ -3,12 +3,13 @@ import React from 'react';
 import styles from '../styles/ProductList.module.scss';
 import Link from 'next/link';
 
-import { Product, Category } from '@prisma/client';
+import { Category, Product } from '@prisma/client';
+import { ProductWithCategory } from 'lib/prisma';
 import ProductCard from './ProductCard';
 import MyCarousel from './MyCarousel';
 
 interface ProductCardProps {
-  products: Product[];
+  products: ProductWithCategory[] | Product[];
   category: Category;
   hasTitle?: boolean;
   isCarousel?: boolean;

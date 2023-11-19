@@ -25,6 +25,7 @@ export async function getManyCategoryWithProd(prodPerCate: number) {
               image: true,
               price: true,
               sku: true,
+              categoryId: true,
             },
             take: prodPerCate,
           },

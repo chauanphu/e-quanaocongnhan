@@ -22,12 +22,12 @@ type Props = {
 }
 
 export default function SinglePageProduct({product, related_products, htmlContent} : Props) {
-  const description = 'Trần Gia Phát chuyên may mặc đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động,...'
+  const description = product?.short_description ? product.short_description : ''
   const keywords = 'Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động'
   const contact = getContact()
   return (
     <>
-      <PageDescription title='Sản phẩm' description={description} keywords={keywords}/>
+      <PageDescription title={product ? product.name : 'Sản phẩm'} description={description} keywords={keywords}/>
       {product && (
         <section className='container'>
           <div className={styles.SinglePageProduct}>
@@ -59,7 +59,7 @@ export default function SinglePageProduct({product, related_products, htmlConten
           <>
             <h1>Sản phẩm tương tự</h1>
             <MyCarousel>
-              {related_products.map((product) => <ProductCard product={product}/>)}
+              {related_products.map((product) => <ProductCard key={product.id} product={product}/>)}
             </MyCarousel>
           </>
           }

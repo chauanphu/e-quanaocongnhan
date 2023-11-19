@@ -14,7 +14,7 @@ export default function Shop({category}:ShopProps) {
   const keywords = 'Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động'
   return (
     <>
-      <PageDescription title='Sản phẩm' description={description} keywords={keywords}/>
+      <PageDescription title={category.name} description={description} keywords={keywords}/>
       <Section title={category.name}>
           {category.products && 
             <ProductList 
@@ -31,7 +31,6 @@ export default function Shop({category}:ShopProps) {
 // Config as server side rendering get slug from params
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
   const slug = params?.slug || '';
-  console.log(slug)
   // Query the category with its top 8 products by slug
   const category = await prisma.category.findUnique({
     where: {
