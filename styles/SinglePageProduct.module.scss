@@ -1,0 +1,103 @@
+@import "./variables.scss";
+.SinglePageProduct {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1em;
+  @media screen and (max-width: $md) {
+    flex-direction: column;
+    align-items: center;
+}
+  img.mainImage {
+    display: flex;
+    margin: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .productInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1rem;
+    p {
+        margin: 5px 0;
+    }
+    @media screen and (max-width: $md) {
+        // justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    p.available {
+        font-size: 14px;
+        color: #555;
+        font-weight: bold;
+    }
+    p.description {
+        font-size: 16px;
+        margin-bottom: 20px;
+        // Set italic
+        font-style: italic;
+    }
+    .price {
+        font-size: 20px;
+        font-weight: bold;
+        color: green;
+    }
+    .contacts {
+        // Anchor contacts at the bottom of the container
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            // Add left and right margins
+            background-color: $color-secondary-dark;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0 1em;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+
+            img{
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+                // Set image color to white
+                filter: invert(100%);
+            }
+            .contactInfo {
+                text-align: center;
+                // Set style of the last children
+                p:last-child {
+                    font-size: 14px;
+                }
+            }
+        }
+        // Add space between buttons
+    }
+  }
+  
+}
+
+.SinglePageProduct__button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #0000ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.SinglePageProduct__button:hover {
+  background-color: #0000cc;
+}

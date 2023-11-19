@@ -14,6 +14,7 @@ import articles_icon from '../public/images/news-icon.gif';
 import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
+import { getManyCategoryWithProd } from 'lib/query';
 
 
 interface HomeProps {
@@ -46,24 +47,7 @@ export default function Home({categories}: HomeProps) {
 // Config as server side rendering
 export async function getServerSideProps() {
   // Query all categories with their top 4 products
-  const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      products: {
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          image: true,
-          price: true,
-          sku: true,
-        },
-        take: 4,
-      },
-    },
-  });
+  const categories = await getManyCategoryWithProd(4)
   return {
     props: {categories},
     // revalidate: 10,

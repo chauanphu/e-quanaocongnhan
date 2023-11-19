@@ -1,9 +1,9 @@
 
 import Section from '@components/Section';
-import prisma from 'lib/prisma';
 import ProductCard from '@components/ProductCard';
 import PageDescription from '@components/page-description';
 import { CategoryWithProducts } from 'lib/prisma';
+import { getManyCategoryWithProd } from 'lib/query';
 
 interface ShopProps {
   categories: CategoryWithProducts[];
@@ -26,24 +26,7 @@ export default function Shop({categories}:ShopProps) {
 
 export async function getServerSideProps() {
   // Query all categories with their top 8 products
-  const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      products: {
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          image: true,
-          price: true,
-          sku: true,
-        },
-        take: 8,
-      },
-    },
-  });
+  const categories = await getManyCategoryWithProd(4)
   return {
     props: {categories},
     // revalidate: 10,

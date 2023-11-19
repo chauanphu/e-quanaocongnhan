@@ -13,7 +13,6 @@ export default async function handler(
   }
   // Construct the path to the image file
   const filePath = path.join(process.cwd(), '_images', 'san-pham', name as string);
-  console.log(filePath);
   // Check if the file exists
   if (fs.existsSync(filePath)) {
     // Read the file
