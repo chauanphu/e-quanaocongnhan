@@ -1,20 +1,22 @@
 
 import PageDescription from '@components/page-description';
 import { GetServerSideProps } from 'next';
-import { getOneProductBySlug } from 'lib/query'
+import { getManyRelatedProduct, getOneProductBySlug } from 'lib/query'
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import styles from 'styles/SinglePageProduct.module.scss'
 import Link from 'next/link';
 import { getContact } from 'lib/utils';
 import home_icon from 'public/images/home-icon.svg'
-import Section from '@components/Section';
+import MyCarousel from '@components/MyCarousel';
+import ProductCard from '@components/ProductCard';
 
 type Props = {
-  product?: Product
+  product?: Product;
+  related_products?: Product[];
 }
 
-export default function SinglePageProduct({product} : Props) {
+export default function SinglePageProduct({product, related_products} : Props) {
   const description = 'Trần Gia Phát chuyên may mặc đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động,...'
   const keywords = 'Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động'
   const contact = getContact()
@@ -47,6 +49,14 @@ export default function SinglePageProduct({product} : Props) {
             </div>
           </div>
           <h1>Mô tả</h1>
+          { related_products && related_products.length > 0 &&
+          <>
+            <h1>Sản phẩm tương tự</h1>
+            <MyCarousel>
+              {related_products.map((product) => <ProductCard parentSlug={''} product={product}/>)}
+            </MyCarousel>
+          </>
+          }
         </section>
       )}
     </>
@@ -56,11 +66,14 @@ export default function SinglePageProduct({product} : Props) {
 // Config as server side rendering get slug from params
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
   const slug = params?.product || '';
-  console.log(slug)
   // // Query the category with its top 8 products by slug
   const product = await getOneProductBySlug(slug as string);
+  var related_products: Product[] | null = [];
+  if (product !== null) {
+     related_products = await getManyRelatedProduct(product.categoryId, product?.id)
+  }
   return {
-    props: {product},
+    props: {product, related_products},
     // revalidate: 10,
   };
 }

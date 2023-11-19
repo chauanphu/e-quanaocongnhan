@@ -23,13 +23,13 @@ const responsive = {
   }
 }
 
-const MyCarousel = ({ children, seconds }) => {
+const MyCarousel = ({ children, seconds=3 }) => {
   return (
     <Carousel
     className={styles.carousel}
       additionalTransfrom={0}
       arrows
-      autoPlaySpeed={3000}
+      autoPlaySpeed={seconds*1000}
       centerMode={false}
       containerClass="container-with-dots"
       dotListClass=""

@@ -41,3 +41,18 @@ export async function getOneProductBySlug(slug: string): Promise<Product | null>
     });
     return product;
 }
+
+export async function getManyRelatedProduct(parentId: string, thisId: string):Promise<Product[] | null> {
+  // Query other products with same parent category randomly
+
+  const relatedProducts = await prisma.product.findMany({
+    where: {
+      categoryId: parentId,
+      NOT: {
+        id: thisId,
+      },
+    },
+    take: 6,
+  });
+  return relatedProducts;
+}
