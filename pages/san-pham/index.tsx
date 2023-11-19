@@ -1,6 +1,6 @@
 
+import ProductList from '@components/ProductList';
 import Section from '@components/Section';
-import ProductCard from '@components/ProductCard';
 import PageDescription from '@components/page-description';
 import { CategoryWithProducts } from 'lib/prisma';
 import { getManyCategoryWithProd } from 'lib/query';
@@ -17,7 +17,7 @@ export default function Shop({categories}:ShopProps) {
       <PageDescription title='Sản phẩm' description={description} keywords={keywords}/>
       <Section title='Sản phẩm'>
         {categories && categories.map((category) => (
-            <ProductCard key={category.id} category={category} products={category.products}/>
+            <ProductList key={category.id} category={category} products={category.products}/>
         ))}
       </Section>
     </>

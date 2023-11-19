@@ -1,0 +1,24 @@
+@import './variables.scss';
+.title {
+  display: flex;
+  // Set width to only cover content
+  width: fit-content;
+  @media screen and (max-width: $sm) {
+      font-size: 12px;
+  }
+  &:hover {
+      color: $color-secondary;
+  }
+}
+.product__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    margin: 1rem 0;
+    @media screen and (max-width: $md) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (max-width: $xs) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

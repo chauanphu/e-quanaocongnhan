@@ -1,8 +1,6 @@
 import PageDescription from '../components/page-description';
 import Banner from '../components/Banner';
 import Section from '../components/Section';
-import ArticleCarousel from '../components/ArticleCarousel';
-import ProductCard from '../components/ProductCard';
 // import { Product, Category } from '@prisma/client';
 import prisma from '../lib/prisma';
 import { CategoryWithProducts } from '../lib/prisma';
@@ -15,6 +13,7 @@ import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
 import { getManyCategoryWithProd } from 'lib/query';
+import ProductList from '@components/ProductList';
 
 
 interface HomeProps {
@@ -30,7 +29,7 @@ export default function Home({categories}: HomeProps) {
       </Section>
       <Section title={"Sản phẩm"} image={cart_icon}>
         {categories && categories.map((category) => (
-          <ProductCard key={category.id} category={category} products={category.products}/>
+          <ProductList key={category.id} category={category} products={category.products}/>
         ))}
         {/* <ProductCard category={category} products={}/> */}
       </Section>
