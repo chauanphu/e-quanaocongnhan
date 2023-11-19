@@ -8,14 +8,19 @@ import home_icon from '../public/images/home-icon.svg'
 import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
 import StructuredData from './structured-data'
-import data from "../data.json"
 import { CategoryWithSub } from 'lib/prisma'
+import { isPageActive, getPages, getContact } from 'lib/utils'
 
 export default function Navbar({openSidebar, categories} : {openSidebar: () => void, categories: CategoryWithSub[]}) {
   // Get active link
   const router = useRouter()
   const activeLink = router.pathname
-  // Structured data
+  // Copy pages from data then remove the 'San phẩm' page
+  const pages = getPages()
+  // Remove 'San phẩm' page
+  // pages = pages.filter((page: Page) => page.name != 'Sản phẩm')
+  const contacts = getContact()
+  
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -37,27 +42,23 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
             <ul className={styles.info}>
               <li>
                   <Image src={email_icon} alt="Icon" height={16} />
-                  {data['contact'].email}
+                  {contacts.email}
               </li>
               <li>
                   <Image src={phone_icon} alt="Icon" height={16} />
-                  {data['contact'].phone}
+                  {contacts.phone}
               </li>
               <li>
                 <Image src={home_icon} alt="Icon" height={16} />
-                {data['contact'].address}
+                {contacts.address}
               </li>
             </ul>
             <ul className={styles.navbar__menu}>
-                    <li className={`${activeLink === '/' ? styles.active : ''}`}>
-                      <Link href='/'>Trang chủ</Link>
-                    </li>
-                    <li className={`${activeLink.match('/san-pham/*') ? styles.active : ''}`}>
-                      <Link href='/san-pham'>Sản phẩm</Link>
-                    </li>
-                    <li className={`${activeLink === '/gioi-thieu' ? styles.active : ''}`}>
-                      <Link href='/gioi-thieu'>Giới thiệu</Link>
-                    </li>
+              {pages && pages.map((page, index) => (
+                <li key={index} className={`${isPageActive(activeLink, page.link) ? styles.active : ''}`}>
+                  <Link href={page.link}>{page.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
         </nav>

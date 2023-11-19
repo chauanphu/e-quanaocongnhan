@@ -9,7 +9,7 @@ export default function Layout({ children }) {
   const [open_sidebar, setOpenSidebar] = useState(false);
   // Fetch categories from /api/categories
   const [categories, setCategories] = useState<CategoryWithSub[]>([]);
-  
+
   useEffect(() => {
     fetch('/api/san-pham/')
       .then(res => res.json())
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
         open={open_sidebar}
         categories={categories}
         handleClose={()=>setOpenSidebar(false)}
-        onSelection={(page)=>handleSidebarSelection()}
+        onSelection={()=>handleSidebarSelection()}
       />
       <CTO />
       <main>
