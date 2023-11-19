@@ -5,13 +5,18 @@ let prisma: PrismaClient;
 const categoryWithProducts = Prisma.validator<Prisma.CategoryDefaultArgs>()({
   include: { products: true },
 })
+export type CategoryWithProducts = Prisma.CategoryGetPayload<typeof categoryWithProducts>
 
 const categoryWithSub = Prisma.validator<Prisma.CategoryDefaultArgs>()({
   include: { children: true },
 })
-
-export type CategoryWithProducts = Prisma.CategoryGetPayload<typeof categoryWithProducts>
 export type CategoryWithSub = Prisma.CategoryGetPayload<typeof categoryWithSub>
+
+// create type for product with category
+const productWithCategory = Prisma.validator<Prisma.ProductDefaultArgs>()({
+  include: { category: true },
+})
+export type ProductWithCategory = Prisma.ProductGetPayload<typeof productWithCategory>
 
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient();

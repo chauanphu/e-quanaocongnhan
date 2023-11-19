@@ -4,17 +4,18 @@ import styles from '../styles/ProductCard.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Product } from '@prisma/client';
+import { ProductWithCategory } from 'lib/prisma';
 
 interface ProductCardProps {
-  product: Product;
-  parentSlug: string;
+  product: ProductWithCategory;
+  parentSlug?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, parentSlug }) => {
+    const link = parentSlug ? `/san-pham/${parentSlug}/${product.slug}` : `/san-pham/${product.category.slug}/${product.slug}`
   return (
     <>
-        {product && <Link key={product.id} href={`/san-pham/${parentSlug}/${product.slug}`} itemScope itemType="https://schema.org/Product">
+        {product && <Link key={product.id} href={link} itemScope itemType="https://schema.org/Product">
             <div className={styles.ProductCard}>
                 <meta itemProp="name" content={product.name} />
                 <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />

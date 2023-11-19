@@ -2,21 +2,26 @@
 import PageDescription from '@components/page-description';
 import { GetServerSideProps } from 'next';
 import { getManyRelatedProduct, getOneProductBySlug } from 'lib/query'
+import { getContact } from 'lib/utils';
+import { ProductWithCategory } from 'lib/prisma';
+
 import { Product } from '@prisma/client';
 import Image from 'next/image';
 import styles from 'styles/SinglePageProduct.module.scss'
 import Link from 'next/link';
-import { getContact } from 'lib/utils';
 import home_icon from 'public/images/home-icon.svg'
 import MyCarousel from '@components/MyCarousel';
 import ProductCard from '@components/ProductCard';
+import path from 'path';
+import markdownToHtml from 'lib/markdownToHTML';
 
 type Props = {
-  product?: Product;
-  related_products?: Product[];
+  product?: ProductWithCategory;
+  related_products?: ProductWithCategory[];
+  htmlContent?: string;
 }
 
-export default function SinglePageProduct({product, related_products} : Props) {
+export default function SinglePageProduct({product, related_products, htmlContent} : Props) {
   const description = 'Trần Gia Phát chuyên may mặc đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động,...'
   const keywords = 'Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động'
   const contact = getContact()
@@ -49,11 +54,12 @@ export default function SinglePageProduct({product, related_products} : Props) {
             </div>
           </div>
           <h1>Mô tả</h1>
+          <div dangerouslySetInnerHTML={{ __html: htmlContent || '' }} />
           { related_products && related_products.length > 0 &&
           <>
             <h1>Sản phẩm tương tự</h1>
             <MyCarousel>
-              {related_products.map((product) => <ProductCard parentSlug={''} product={product}/>)}
+              {related_products.map((product) => <ProductCard product={product}/>)}
             </MyCarousel>
           </>
           }
@@ -72,8 +78,10 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
   if (product !== null) {
      related_products = await getManyRelatedProduct(product.categoryId, product?.id)
   }
+  const descriptionPath = path.join(process.cwd(), '_posts', 'san-pham', `${product?.slug}.md`);
+  const htmlContent = await markdownToHtml(descriptionPath)
   return {
-    props: {product, related_products},
+    props: {product, related_products, htmlContent},
     // revalidate: 10,
   };
 }
