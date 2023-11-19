@@ -2,7 +2,6 @@ import PageDescription from '../components/page-description';
 import Banner from '../components/Banner';
 import Section from '../components/Section';
 // import { Product, Category } from '@prisma/client';
-import prisma from '../lib/prisma';
 import { CategoryWithProducts } from '../lib/prisma';
 import banner_1 from '../public/images/banner-1.webp';
 import about_us_icon from '../public/images/about-us-icon.gif';
@@ -14,6 +13,7 @@ import process_banner from '../public/images/qui-trinh-dat-hang.webp';
 import customers_baner from '../public/images/customers-banner.webp';
 import { getManyCategoryWithProd } from 'lib/query';
 import ProductList from '@components/ProductList';
+import MyCarousel from '@components/MyCarousel';
 
 
 interface HomeProps {

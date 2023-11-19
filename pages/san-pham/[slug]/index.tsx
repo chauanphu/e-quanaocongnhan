@@ -1,10 +1,10 @@
 
 import Section from '@components/Section';
 import prisma from 'lib/prisma';
-import ProductCard from '@components/ProductCard';
 import PageDescription from '@components/page-description';
 import { CategoryWithProducts } from 'lib/prisma';
 import { GetServerSideProps } from 'next';
+import ProductList from '@components/ProductList';
 interface ShopProps {
   category: CategoryWithProducts;
 }
@@ -17,10 +17,10 @@ export default function Shop({category}:ShopProps) {
       <PageDescription title='Sản phẩm' description={description} keywords={keywords}/>
       <Section title={category.name}>
           {category.products && 
-            <ProductCard 
+            <ProductList 
               key={category.id} 
               hasTitle={false}
-              category={category} 
+              category={category}
               products={category.products}/>
           }
       </Section>

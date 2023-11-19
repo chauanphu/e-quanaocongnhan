@@ -8,12 +8,13 @@ import { Product } from '@prisma/client';
 
 interface ProductCardProps {
   product: Product;
+  parentSlug: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, parentSlug }) => {
   return (
     <>
-        {product && <Link key={product.id} href={`/${product.slug}`} itemScope itemType="https://schema.org/Product">
+        {product && <Link key={product.id} href={`/san-pham/${parentSlug}/${product.slug}`} itemScope itemType="https://schema.org/Product">
             <div className={styles.ProductCard}>
                 <meta itemProp="name" content={product.name} />
                 <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />
