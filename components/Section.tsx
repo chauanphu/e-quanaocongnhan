@@ -3,7 +3,7 @@ import styles from '../styles/Section.module.scss';
 
 interface SectionProps {
     title: string;
-    image: StaticImageData;
+    image?: StaticImageData;
     contrast_bg?: boolean;
     children: React.ReactNode;
 }
@@ -11,7 +11,7 @@ export default function Section({ title, image, contrast_bg, children }: Section
     return (        
         <div className={`${styles.section} ${contrast_bg ? styles.active : ''}`}>
             <h1 className={styles.section__title}>
-                <Image className={styles.section__icon} alt={title} src={image} height={50}/>
+                {image && <Image className={styles.section__icon} alt={title} src={image} height={50}/>}
                 {title}
             </h1>
             <div className={`${styles.wrapper}`}>

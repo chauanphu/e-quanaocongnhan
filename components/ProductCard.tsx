@@ -10,18 +10,19 @@ import path from 'path';
 interface ProductCardProps {
   products: Product[];
   category: Category;
+  hasTitle?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ products, category }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ products, category, hasTitle=true }) => {
   return (
     <>
-        <Link href={'/san-pham/' + category.slug} className={styles.title}>
+        {(hasTitle && category) && <Link href={'/san-pham/' + category.slug} className={styles.title}>
             <h2>{category.name}</h2>
-        </Link>
+        </Link>}
         <div className={styles.product__list}>
             {
-                products ? products.map((product) => (
-                    <Link key={product.id} href={path.join('    /san-pham', category.slug, product.slug)} itemScope itemType="https://schema.org/Product">
+                products && products.length > 0 ? products.map((product) => (
+                    <Link key={product.id} href={`/san-phan/${category.slug}/${product.slug}`} itemScope itemType="https://schema.org/Product">
                         <div className={styles.ProductCard}>
                             <meta itemProp="name" content={product.name} />
                             <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />

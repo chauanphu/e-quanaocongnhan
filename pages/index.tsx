@@ -20,8 +20,6 @@ interface HomeProps {
   categories: CategoryWithProducts[];
 }
 export default function Home({categories}: HomeProps) {
-  // const articles = data.articles;
-  // const products = data.products;
   return (
     <>
       <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
@@ -47,7 +45,7 @@ export default function Home({categories}: HomeProps) {
 
 // Config as server side rendering
 export async function getServerSideProps() {
-  // Query all categories with their top 10 products
+  // Query all categories with their top 4 products
   const categories = await prisma.category.findMany({
     select: {
       id: true,
@@ -62,7 +60,7 @@ export async function getServerSideProps() {
           price: true,
           sku: true,
         },
-        take: 10,
+        take: 4,
       },
     },
   });

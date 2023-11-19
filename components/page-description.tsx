@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-interface PageDescription {
+export interface IPageDescription {
   title: string;
   description?: string;
   keywords: string;
@@ -9,7 +9,7 @@ interface PageDescription {
 export default function PageDescription({ 
     title = 'Trang chủ', 
     description = "Trần Gia Phát chuyên sản xuất quần áo công nhân, đồng phục theo yêu cầu",
-    keywords="Quần áo công nhân, đồng phục công nhân, Trần Gia Phát" }: PageDescription) {
+    keywords="Quần áo công nhân, đồng phục công nhân, Trần Gia Phát" }: IPageDescription) {
   const msg = `${title} - BHLĐ Trần Gia Phát`;
   return (
     <Head key="page-description">

@@ -1,12 +1,15 @@
 
 @import './variables.scss';
 .title {
-    @media screen and (max-width: $sm) {
-        font-size: 12px;
-    }
-    &:hover {
-        color: $color-secondary;
-    }
+  display: flex;
+  // Set width to only cover content
+  width: fit-content;
+  @media screen and (max-width: $sm) {
+      font-size: 12px;
+  }
+  &:hover {
+      color: $color-secondary;
+  }
 }
 .product__list {
     display: grid;
