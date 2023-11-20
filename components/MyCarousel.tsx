@@ -34,7 +34,6 @@ const MyCarousel = ({ children, seconds=3 }) => {
       containerClass="container-with-dots"
       dotListClass=""
       draggable
-      focusOnSelect={false}
       infinite
       keyBoardControl
       minimumTouchDrag={80}

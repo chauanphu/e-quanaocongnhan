@@ -1,12 +1,16 @@
 version: '3'
 services:
   app:
-    build: .
-    ports:
-      - "3000:3000"
+    container_name: nextjs_quanaocongnhan
+    image: chauanphu/e-quanaocongnhan-app:1.0.0
     env_file:
       - .env
     volumes:
       - ./_images:/usr/src/app/_images
       - ./_posts:/usr/src/app/_posts
       - ./data.json:/usr/src/app/data.json
+    networks:
+      - nginx-network
+networks:
+  nginx-network:
+    external: true

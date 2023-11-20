@@ -10,6 +10,7 @@
   padding-bottom: 1em;
   padding-right: 1em;
   gap: 10px;
+  z-index: 997;
   .cto__button {
     // Add vertical padding
     padding: 0.5em 1em;
@@ -38,8 +39,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    span {
+      margin: 0 0.5em;
+    }
     img {
-        margin-left: 1em;
         // Set circle border
         border-radius: 50%;
     }

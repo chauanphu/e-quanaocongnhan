@@ -49,7 +49,7 @@ nav.header__top {
     }
     ul.navbar__menu {
       .active {
-        color: $color-primary;
+        color: $color-primary-dark;
       }
     }
     .info {
@@ -60,6 +60,7 @@ nav.header__top {
       flex-wrap: wrap;
       li {
         margin-bottom: 10px;
+        color: black;
       }
     }
 

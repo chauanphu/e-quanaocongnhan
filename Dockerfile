@@ -1,6 +1,6 @@
 # Dockerfile
 # Use an official Node.js runtime as the base image
-FROM node:20-alpine3.18
+FROM node:20-alpine3.18 as base
 
 # Set the working directory in the Docker image
 WORKDIR /usr/src/app
@@ -15,6 +15,9 @@ RUN npm install
 COPY . .
 
 RUN npx prisma generate
+
+# Set NODE_ENV to production
+ENV NODE_ENV production
 
 # Build the Next.js application for production
 RUN npm run build

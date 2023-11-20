@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, parentSlug }) => {
                 <Image 
                     className={styles.ProductCard__image} 
                     itemProp="image"
-                    src={product.image ? '/api/images/san-pham/'+ product.image : '/images/placeholder.png'}  
+                    src={product.image ? '/api/images/san-pham/'+ product.image : ''}  
                     alt={product.name}
                     priority={false}
                     width={150}
