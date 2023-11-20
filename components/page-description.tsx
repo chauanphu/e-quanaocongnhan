@@ -5,6 +5,7 @@ export interface IPageDescription {
   title: string;
   description?: string;
   keywords: string;
+  domain?: string;
   og?: OpenGraph;
 }
 
@@ -12,15 +13,14 @@ export default function PageDescription({
     title = 'Trang chủ', 
     description = "Trần Gia Phát chuyên sản xuất quần áo công nhân, đồng phục theo yêu cầu",
     keywords="Quần áo công nhân, đồng phục công nhân, Trần Gia Phát",
+    domain,
     og }: IPageDescription) {
   const msg = `${title} - BHLĐ Trần Gia Phát`;
-  const domain = process.env['PUBLIC_DOMAIN']
   return (
     <Head key="page-description">
         <title>{msg}</title>
         <meta charSet='utf-8'/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="generator" content="Nextjs"/>
         <meta
             name="description" content={description} 
@@ -37,8 +37,18 @@ export default function PageDescription({
         <meta property="og:description" content={description}/>
         <meta property="og:url" content={`${domain}/${og?.url ? og.url: ''}`}/>
         <meta property="og:locale" content="vi"/>
-        <link rel='canonical' href={process.env['PUBLIC_DOMAIN']}/>
+        <link rel='canonical' href={process.env.NEXT_PUBLIC_DOMAIN}/>
         {/*  */}
     </Head>
   );
+}
+
+// Use Server Side Rendering
+export async function getServerSideProps() {
+  const domain = process.env.NEXT_PUBLIC_DOMAIN
+  return {
+    props: {
+      domain
+    }
+  }
 }

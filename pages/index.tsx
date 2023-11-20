@@ -8,6 +8,7 @@ import customer_icon from '../public/images/team.png';
 import cart_icon from '../public/images/cart-icon.gif';
 import articles_icon from '../public/images/news-icon.gif';
 import process_banner from '../public/images/qui-trinh-dat-hang.webp';
+import banner_1 from 'public/images/banner-1.webp';
 
 import customers_baner from '../public/images/customers-banner.webp';
 import { getManyCategoryWithProd } from 'lib/query';
@@ -21,7 +22,7 @@ export default function Home({categories}: HomeProps) {
   return (
     <>
       <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
-      <Banner image="/api/images/banner/banner-1.webp" alt='Banner'/>
+      <Banner image={banner_1} alt='Banner'/>
       <Section title={"Giới thiệu"} image={about_us_icon} contrast_bg={true}>
         <Banner image={process_banner} alt="Qui trình đặt hàng"/>
       </Section>

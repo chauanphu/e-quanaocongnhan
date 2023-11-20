@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
-import path from 'path';
+import requireImage from 'lib/requireImage';
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,12 +12,10 @@ export default async function handler(
     return;
   }
   // Construct the path to the image file
-  const filePath = path.join(process.cwd(), 'data', '_images', 'san-pham', name as string);
+  const file = requireImage('san-pham', name as string);
   // Check if the file exists
-  if (fs.existsSync(filePath)) {
+  if (file) {
     // Read the file
-    const file = fs.readFileSync(filePath);
-
     // Set the Content-Type header to image/webp
     res.setHeader('Content-Type', 'image/webp');
 

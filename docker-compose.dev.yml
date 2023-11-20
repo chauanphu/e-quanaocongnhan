@@ -7,6 +7,4 @@ services:
     env_file:
       - .env
     volumes:
-      - ./_images:/usr/src/app/_images
-      - ./_posts:/usr/src/app/_posts
-      - ./data.json:/usr/src/app/data.json
+      - ./data:/usr/src/app/data

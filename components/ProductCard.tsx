@@ -19,14 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, parentSlug }) => {
         {product && <Link key={product.id} href={link} itemScope itemType="https://schema.org/Product">
             <div className={styles.ProductCard}>
                 <meta itemProp="name" content={product.name} />
-                <link itemProp="image" href="https://example.com/photos/16x9/photo.jpg" />
+                <link itemProp="image" href={`${process.env.NEXT_PUBLIC_DOMAIN}/api/images/san-pham/${product.image}`} />
                 <meta itemProp='description' content={product.short_description ? product.short_description : ''}/>
-                <Image 
+                <img 
                     className={styles.ProductCard__image} 
                     itemProp="image"
                     src={product.image ? '/api/images/san-pham/'+ product.image : ''}  
                     alt={product.name}
-                    priority={false}
                     width={150}
                     height={150}
                 />

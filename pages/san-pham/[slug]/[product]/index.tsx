@@ -31,8 +31,8 @@ export default function SinglePageProduct({product, related_products, htmlConten
       {product && (
         <section className='container'>
           <div className={styles.SinglePageProduct}>
-            <Image 
-              src={product.image ? '/api/images/san-pham/'+ product.image : '/images/placeholder.png'} 
+            <img 
+              src={product.image ? '/api/images/san-pham/'+ product.image : 'api/images/placeholder.webp'} 
               alt={product.name}
               width={300} height={300}
               className={styles.mainImage}/>
