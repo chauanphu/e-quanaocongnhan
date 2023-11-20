@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import CTO from "./CTO";
 import Footer from "./Footer";
 import { CategoryWithSub } from "lib/prisma";
+import styles from "styles/Layout.module.scss";
 
 export default function Layout({ children }) {
   const [open_sidebar, setOpenSidebar] = useState(false);
@@ -31,7 +32,7 @@ export default function Layout({ children }) {
         onSelection={()=>handleSidebarSelection()}
       />
       <CTO />
-      <main>
+      <main className={styles.mainLayout}>
         {children}
       </main>
       <Footer/>
