@@ -10,3 +10,4 @@ LICENSE
 .gitlab
 .git
 _*
+data/*
