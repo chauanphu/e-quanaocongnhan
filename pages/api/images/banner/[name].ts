@@ -12,7 +12,7 @@ export default async function handler(
     return;
   }
   // Construct the path to the image file
-  const filePath = path.join(process.cwd(), '_images', 'banner', name as string);
+  const filePath = path.join(process.cwd(), 'data', '_images', 'banner', name as string);
   // Check if the file exists
   if (fs.existsSync(filePath)) {
     // Read the file

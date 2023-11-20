@@ -1,15 +1,5 @@
 import prisma from "./prisma";
-import { Product } from "@prisma/client";
 import { ProductWithCategory } from "./prisma";
-// export async function getAllCategoryWithSub {
-//     const categories = await prisma.category.findMany({
-//         include: {
-//         subCategories: true,
-//         },
-//     });
-    
-//     return categories;
-// }
 
 export async function getManyCategoryWithProd(prodPerCate: number) {
     const categories = await prisma.category.findMany({

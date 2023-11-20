@@ -1,5 +1,5 @@
 import Page from "interfaces/page"
-import data from "../data.json"
+import data from "../data/data.json"
 
 export function getPages(): Page[] {
    return data['main-nav']

@@ -15,7 +15,7 @@ export default async function handler(
     return;
   }
   // Construct the path to the image file
-  const fullPath = path.join(process.cwd(), '_posts', `${name}.md`);
+  const fullPath = path.join(process.cwd(), 'data', '_posts', `${name}.md`);
   // Check if the file exists
   if (fs.existsSync(fullPath)) {
     // Read the file
