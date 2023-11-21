@@ -23,7 +23,7 @@ const pages = getAdminPages();
                 <div key={index}>
                     <span className={`${styles.link} ${isPageActive(activeLink, page.link) ? styles.active : ''}`}>
                         <Link 
-                            href={'/admin' + page.link} 
+                            href={page.link} 
                             onClick={()=> {
                             }}>
                             {page.name}

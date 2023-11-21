@@ -26,15 +26,15 @@
   "admin-nav": [
     {
       "name": "Dashboard",
-      "link": "/admin/"
+      "link": "/admin"
     },
     {
       "name": "Sản phẩm",
-      "link": "/san-pham/"
+      "link": "/admin/san-pham/"
     },
     {
       "name": "Blogs",
-      "link": "/blogs/"
+      "link": "/admin/blogs/"
     }
   ],
   "articles": [{
