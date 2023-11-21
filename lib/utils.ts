@@ -21,6 +21,7 @@ export function getContact(): {
 */
 export const isPageActive = (activeLink: string, pageLink: string) => {
    if (pageLink === '/') return activeLink === pageLink
+   if (pageLink === '/admin') return activeLink === pageLink
    if (activeLink.match(pageLink + '*')) return true
    // console.log(activeLink, pageLink)
    return false

@@ -29,6 +29,10 @@
       "link": "/admin"
     },
     {
+      "name": "Danh mục",
+      "link": "/admin/danh-muc/"
+    },
+    {
       "name": "Sản phẩm",
       "link": "/admin/san-pham/"
     },
