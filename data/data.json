@@ -23,6 +23,20 @@
       "link": "/blogs/"
     }
   ],
+  "admin-nav": [
+    {
+      "name": "Dashboard",
+      "link": "/admin/"
+    },
+    {
+      "name": "Sản phẩm",
+      "link": "/san-pham/"
+    },
+    {
+      "name": "Blogs",
+      "link": "/blogs/"
+    }
+  ],
   "articles": [{
     "id": 1,
     "image": "/path/to/image1.jpg",

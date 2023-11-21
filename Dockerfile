@@ -18,6 +18,7 @@ RUN npx prisma generate
 
 # Set NODE_ENV to production
 ENV NODE_ENV production
+ENV NEXT_PUBLIC_DOMAIN https://quanaocongnhan.com
 
 # Build the Next.js application for production
 RUN npm run build

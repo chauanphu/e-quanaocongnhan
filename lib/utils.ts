@@ -25,3 +25,7 @@ export const isPageActive = (activeLink: string, pageLink: string) => {
    // console.log(activeLink, pageLink)
    return false
 }
+
+export const getAdminPages = () => {
+   return data['admin-nav']
+}
