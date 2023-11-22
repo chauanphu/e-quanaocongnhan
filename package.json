@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "exceljs": "^4.4.0",
     "gray-matter": "^4.0.3",
     "next": "14.0.2",
     "react": "18.2.0",
