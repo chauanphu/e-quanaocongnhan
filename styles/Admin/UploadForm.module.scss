@@ -1,0 +1,33 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    input, select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    select {
+        option{
+            margin: 1em;
+        }
+    }
+    button[type="submit"] {
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+        
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
