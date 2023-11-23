@@ -1,3 +1,4 @@
+import { Category } from "@prisma/client";
 import prisma from "./prisma";
 import { ProductWithCategory } from "./prisma";
 
@@ -56,21 +57,52 @@ export async function getManyRelatedProduct(parentId: string, thisId: string):Pr
 // Update categories by id
 export async function updateCategoryById(id: string | undefined, data: any): Promise<string> {
   const updatedCategory = await prisma.category.update({
-    where: {
-      id,
-    },
+    where: { id: id || '' },
     data: data,
   });
   return updatedCategory.id;
 }
+// Create new Category if not exists in database
+export async function createCategory(data: any): Promise<string> {
+  const newCategory = await prisma.category.create({
+    data: data,
+  });
+  return newCategory.id;
+}
+
+// Update categories by id if not exists then create new category
+export async function updateOrCreateCategory(id: string | undefined, data: any): Promise<string> {
+  const updatedCategory = await prisma.category.upsert({
+    where: { id: id || '' },
+    update: data,
+    create: data,
+  });
+  return updatedCategory.id;
+}
+
 
 // Update products by id
 export async function updateProductById(id: string | undefined, data: any): Promise<string> {
   const updatedProduct = await prisma.product.update({
-    where: {
-      id,
-    },
+    where: { id: id || '' },
     data: data,
+  });
+  return updatedProduct.id;
+}
+// Create new Product
+export async function createProduct(data: any): Promise<string> {
+  const newProduct = await prisma.product.create({
+    data: data,
+  });
+  console.log(newProduct.id);
+  return newProduct.id;
+}
+// Update products by id if not exists then create new product
+export async function updateOrCreateProduct(id: string | undefined, data: any): Promise<string> {
+  const updatedProduct = await prisma.product.upsert({
+    where: { id: id || '' },
+    update: data,
+    create: data,
   });
   return updatedProduct.id;
 }

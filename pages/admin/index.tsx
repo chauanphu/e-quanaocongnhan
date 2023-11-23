@@ -1,19 +1,25 @@
 
-import axios from 'axios';
 import React, { useState } from 'react';
-  
+import styles from 'styles/Admin/AdminPage.module.scss';
+
 const AdminPage = () => {
   const [file, setFile] = useState<File>();
-  const [method, setMethod] = useState<string>('POST');
-  const [target, setTarget] = useState<string>('/api/san-pham/upload');
+  const [method, setMethod] = useState<string>('PATCH');
+  const [target, setTarget] = useState<string>('categories');
 
+  const handleFileSelection = (event) => {
+    setFile(event.target.files[0]);
+  }
   const submitFile = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!file) return;
+    if (!file) {
+      console.error('No file selected');
+      return 
+    }
     try {
       const data = new FormData();
       data.set('file', file);
-      const res = await fetch(target, {
+      const res = await fetch(`/api/san-pham/upload?target=${target}`, {
         method: method,
         body: data
       });
@@ -22,25 +28,30 @@ const AdminPage = () => {
     } catch (e: any) {
       // Handle errors here
       console.error(e);
+    } finally {
+      // Reset the file input
     }
   };
 
   return (
     <div>
       <h1>Admin Dashboard</h1>
-      <form onSubmit={submitFile}>
-        <input type="file" onChange={(event) => setFile(event.target.files?.[0])} />
+      <form onSubmit={submitFile} className={styles.form}>
+        <input type="file" onChange={(event) => handleFileSelection(event)} />
         <label>
           Method:
           <select value={method} onChange={(event) => setMethod(event.target.value)}>
-            <option value="POST">POST</option>
-            <option value="PUT">PUT</option>
-            <option value="PATCH">PATCH</option>
+            {/* <option value="POST">CHỈ TẠO MỚI (KHÔNG CẦN ID)</option> */}
+            <option value="PUT">CHỈ CHỈNH SỬA (CẦN ID)</option>
+            <option value="PATCH">CHỈNH SỬA VÀ TẠO MỚI</option>
           </select>
         </label>
         <label>
-          Target:
-          <input type="text" value={target} onChange={(event) => setTarget(event.target.value)} />
+          Đối tượng:
+          <select value={target} onChange={(event) => setTarget(event.target.value)}>
+            <option value="categories">DANH MỤC SẢN PHẨM</option>
+            <option value="products">SẢN PHẨM</option>
+          </select>
         </label>
         <button type="submit">Submit</button>
       </form>

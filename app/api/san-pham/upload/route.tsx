@@ -1,77 +1,107 @@
 import { NextRequest, NextResponse } from 'next/server'
 import ExcelJS from 'exceljs'
-import path from 'path'
-import prisma from 'lib/prisma'
-import { updateCategoryById, updateProductById } from 'lib/query'
+import { createCategory, createProduct, updateCategoryById, updateOrCreateCategory, updateOrCreateProduct, updateProductById } from 'lib/query'
 
-export async function POST(request: NextRequest) {
-  const data = await request.formData()
-  const file: File | null = data.get('file') as unknown as File
-  try {
-  if (!file) {
-    return NextResponse.json({ success: false })
-  }
-
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-
-  // With the file data in the buffer, you can do whatever you want with it.
-  // Parse buffer to excel file using exceljs and save it to the file system
-  const workbook = new ExcelJS.Workbook()
-  const fullPath = path.join(process.cwd(), 'data', 'quanaocongnhan.xlsx')
-  
-  await workbook.xlsx.load(buffer)
-  await workbook.xlsx.writeFile(fullPath)
-
-  // Get the data of the "Category" sheet
-  const categoryWorksheet = workbook.getWorksheet('Category')
-  if (!categoryWorksheet) {
-    return NextResponse.json({ success: false })
-  }
+const mapExcel2Category = async (worksheet: ExcelJS.Worksheet, handleCategory) => {
   // Update prisma database with the data from the excel file
-  for (let i = 2; i <= categoryWorksheet.rowCount; i++) {
-    const id = categoryWorksheet.getCell(`A${i}`).value?.toString()
-    const name = categoryWorksheet.getCell(`B${i}`).value?.toString()
-    const slug = categoryWorksheet.getCell(`C${i}`).value?.toString()
-    const parentID = categoryWorksheet.getCell(`D${i}`).value?.toString()
+  for (let i = 2; i <= worksheet.rowCount; i++) {
+    const id = worksheet.getCell(`A${i}`).value?.toString()
+    const name = worksheet.getCell(`B${i}`).value?.toString()
+    const slug = worksheet.getCell(`C${i}`).value?.toString()
+    const parentID = worksheet.getCell(`D${i}`).value?.toString()
     const data = {
       name: name,
       slug: slug,
       parentID: parentID,
     }
     
-    console.log(await updateCategoryById(id,data))
+    await handleCategory(id, data)
   }
-  // Similarly with the "Product" sheet
-  const productWorksheet = workbook.getWorksheet('Product')
-  if (!productWorksheet) {
-    return NextResponse.json({ success: false })
-  }
-  // Update prisma database with the data from the excel file
-  for (let i = 2; i <= productWorksheet.rowCount; i++) {
-    const id = productWorksheet.getCell(`A${i}`).value?.toString()
-    const name = productWorksheet.getCell(`B${i}`).value?.toString()
-    const slug = productWorksheet.getCell(`C${i}`).value?.toString()
-    const price = productWorksheet.getCell(`D${i}`).value?.toString()
-    const quantity = productWorksheet.getCell(`E${i}`).value?.toString()
-    const description = productWorksheet.getCell(`F${i}`).value?.toString()
-    const categoryID = productWorksheet.getCell(`G${i}`).value?.toString()
+}
+
+const mapExcel2Product = async (worksheet: ExcelJS.Worksheet, handleProducts) => {
+  // Iterate through each row, skip the first row (header row)
+
+
+  for (let i = 2; i <= worksheet.rowCount; i++) {
+    const id = worksheet.getCell(`A${i}`).value?.toString()
+    const name = worksheet.getCell(`B${i}`).value?.toString()
+    const sku = worksheet.getCell(`C${i}`).value?.toString()
+    const slug = worksheet.getCell(`D${i}`).value?.toString()
+    const _price = worksheet.getCell(`E${i}`).value?.toString()
+    const price = _price ? parseInt(_price) : 0
+    const image = worksheet.getCell(`F${i}`).value?.toString()
+    const short_description = worksheet.getCell(`G${i}`).value?.toString()
+    const long_description = worksheet.getCell(`H${i}`).value?.toString()
+    const categoryId = worksheet.getCell(`I${i}`).value?.toString()
     const data = {
       name: name,
       slug: slug,
+      sku: sku,
       price: price,
-      quantity: quantity,
-      description: description,
-      categoryID: categoryID,
+      image: image,
+      short_description: short_description,
+      long_description: long_description,
+      categoryId: categoryId,
     }
     
-    console.log(await updateProductById(id,data))
-  }
-  return NextResponse.json({ success: true })
-  } catch (e: any) {
-    // Handle errors here
-    console.error(e)
-    // Return a 500 error 
-    return NextResponse.json({ success: false}, {status: 500 })
+    await handleProducts(id,data)
   }
 }
+
+const cvt2Workbook = async (data: FormData) => {
+  try {
+    const file: File | null = data.get('file') as unknown as File
+    if (!file) {
+      return null
+    }
+    const bytes = await file.arrayBuffer()
+    const buffer = Buffer.from(bytes)
+  
+    // With the file data in the buffer, you can do whatever you want with it.
+    // Parse buffer to excel file using exceljs and save it to the file system
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    // const fullPath = path.join(process.cwd(), 'data', 'quanaocongnhan.xlsx')
+    // await workbook.xlsx.writeFile(fullPath)
+    return workbook
+  } catch (e: any) {
+    return null
+  }
+}
+
+const handler = async (request: NextRequest, handleCategory, handleProducts) => {
+  const data = await request.formData()
+  const workbook = await cvt2Workbook(data)
+  // Get _target from query string
+  const target = request.nextUrl.searchParams.get('target')
+  if (!workbook) {
+    return NextResponse.json({ success: false })
+  }
+  if (target === 'categories') {
+    const categoryWorksheet = workbook.getWorksheet('Category')
+    if (!categoryWorksheet) {
+      return NextResponse.json({ success: false })
+    }
+    await mapExcel2Category(categoryWorksheet, handleCategory)
+  } else if (target === 'products') {
+    const productWorksheet = workbook.getWorksheet('Product')
+    if (!productWorksheet) {
+      return NextResponse.json({ success: false })
+    }
+    await mapExcel2Product(productWorksheet, handleProducts)
+  }
+  return NextResponse.json({ success: true })
+} 
+
+export async function PUT(request: NextRequest) {
+  return await handler(request, updateCategoryById, updateProductById)
+}
+
+export async function PATCH(request: NextRequest) {
+  return await handler(request, updateOrCreateCategory, updateOrCreateProduct)
+}
+
+// export async function POST(request: NextRequest) {
+//   return await handler(request, createCategory, createProduct)
+// }
