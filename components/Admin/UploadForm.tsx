@@ -10,12 +10,12 @@ interface UploadForm {
 }
 
 const UploadForm: React.FC<UploadForm> = ({title, type, onSubmitFile, handleFileSelection, children}) => {
-  const [method, setMethod] = useState<string>('PATCH');
+  const isMultiple = type === '.webp';
   return (
     <div>
       <h2>{title}</h2>
       <form onSubmit={onSubmitFile} className={styles.form}>
-        <input type="file" accept={type}  onChange={(event) => handleFileSelection(event)} />
+        <input multiple={isMultiple} type="file" accept={type} onChange={(event) => handleFileSelection(event)} />
         {children}
         <button type="submit">Submit</button>
       </form>

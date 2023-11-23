@@ -25,7 +25,7 @@ const CategoryDashboard: React.FC = () => {
     try {
       const data = new FormData();
       data.set('file', excel);
-      const res = await fetch(`/api/san-pham/upload?target=categoires}`, {
+      const res = await fetch(`/api/san-pham/upload?target=categories}`, {
         method: method,
         body: data
       });
