@@ -52,3 +52,25 @@ export async function getManyRelatedProduct(parentId: string, thisId: string):Pr
   });
   return relatedProducts;
 }
+
+// Update categories by id
+export async function updateCategoryById(id: string | undefined, data: any): Promise<string> {
+  const updatedCategory = await prisma.category.update({
+    where: {
+      id,
+    },
+    data: data,
+  });
+  return updatedCategory.id;
+}
+
+// Update products by id
+export async function updateProductById(id: string | undefined, data: any): Promise<string> {
+  const updatedProduct = await prisma.product.update({
+    where: {
+      id,
+    },
+    data: data,
+  });
+  return updatedProduct.id;
+}
