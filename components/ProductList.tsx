@@ -26,7 +26,7 @@ const ProductList: React.FC<ProductCardProps> = ({ products, category, hasTitle=
             <MyCarousel seconds={5}>
               {
                   products.map((product) => (
-                      <ProductCard key={product.id} parentSlug={category.slug} product={product}/>
+                      <ProductCard key={product.id} product={product}/>
                   )) 
               }
             </MyCarousel>
@@ -36,7 +36,7 @@ const ProductList: React.FC<ProductCardProps> = ({ products, category, hasTitle=
         <div className={styles.product__list}>
             {
                 products && products.length > 0 ? products.map((product) => (
-                    <ProductCard key={product.id} parentSlug={category.slug} product={product}/>
+                    <ProductCard key={product.id} product={product}/>
                 )) : 
                 <p>Sản phẩm đang được cập nhật</p>
             }

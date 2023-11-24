@@ -8,28 +8,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Create a new workbook
     const workbook = new ExcelJS.Workbook();
     const categoryWorksheet = workbook.addWorksheet('Category');
-    const productCategory = workbook.addWorksheet('Products');
+    const productCategory = workbook.addWorksheet('Product');
     // Get all products and categories from prisma
     const categories = await prisma.category.findMany({});
     const products = await prisma.product.findMany({});
 
     // Add column headers and define column keys and widths for categories
     categoryWorksheet.columns = [
-      { header: 'ID', key: 'id', width: 10 },
-      { header: 'Name', key: 'name', width: 32 },
       { header: 'Slug', key: 'slug', width: 32 },
-      { header: 'Parent', key: 'categoryId', width: 32 },
+      { header: 'Name', key: 'name', width: 32 },
+      { header: 'Parent Slug', key: 'categorySlug', width: 32 },
     ];
     // Add column headers and define column keys and widths for products
     productCategory.columns = [
-      { header: 'ID', key: 'id', width: 10 },
-      { header: 'Name', key: 'name', width: 32 },
       { header: 'Slug', key: 'slug', width: 32 },
+      { header: 'Name', key: 'name', width: 32 },
+      { header: 'SKU', key: 'sku', width: 32 },
       { header: 'Price', key: 'price', width: 32 },
       { header: 'Image', key: 'image', width: 32 },
       { header: 'Short Description', key: 'short_description', width: 32 },
       { header: 'Long Description', key: 'long_description', width: 32 },
-      { header: 'Category', key: 'categoryId', width: 32 },
+      { header: 'Category', key: 'categorySlug', width: 32 },
     ];
     // Add data to categories
     categories.forEach((category) => {

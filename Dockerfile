@@ -14,7 +14,7 @@ RUN npm install
 # Copy the rest of your app's source code to the Docker image
 COPY . .
 
-RUN npx prisma generate
+RUN npx prisma migrate deploy
 
 # Set NODE_ENV to production
 ENV NODE_ENV production

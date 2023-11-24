@@ -5,35 +5,32 @@ import { createCategory, createProduct, updateCategoryById, updateOrCreateCatego
 const mapExcel2Category = async (worksheet: ExcelJS.Worksheet, handleCategory) => {
   // Update prisma database with the data from the excel file
   for (let i = 2; i <= worksheet.rowCount; i++) {
-    const id = worksheet.getCell(`A${i}`).value?.toString()
+    const slug = worksheet.getCell(`A${i}`).value?.toString()
     const name = worksheet.getCell(`B${i}`).value?.toString()
-    const slug = worksheet.getCell(`C${i}`).value?.toString()
-    const parentID = worksheet.getCell(`D${i}`).value?.toString()
+    const parentID = worksheet.getCell(`C${i}`).value?.toString()
     const data = {
       name: name,
       slug: slug,
       parentID: parentID,
     }
     
-    await handleCategory(id, data)
+    await handleCategory(slug, data)
   }
 }
 
 const mapExcel2Product = async (worksheet: ExcelJS.Worksheet, handleProducts) => {
   // Iterate through each row, skip the first row (header row)
 
-
   for (let i = 2; i <= worksheet.rowCount; i++) {
-    const id = worksheet.getCell(`A${i}`).value?.toString()
+    const slug = worksheet.getCell(`A${i}`).value?.toString()
     const name = worksheet.getCell(`B${i}`).value?.toString()
     const sku = worksheet.getCell(`C${i}`).value?.toString()
-    const slug = worksheet.getCell(`D${i}`).value?.toString()
-    const _price = worksheet.getCell(`E${i}`).value?.toString()
+    const _price = worksheet.getCell(`D${i}`).value?.toString()
     const price = _price ? parseInt(_price) : 0
-    const image = worksheet.getCell(`F${i}`).value?.toString()
-    const short_description = worksheet.getCell(`G${i}`).value?.toString()
-    const long_description = worksheet.getCell(`H${i}`).value?.toString()
-    const categoryId = worksheet.getCell(`I${i}`).value?.toString()
+    const image = worksheet.getCell(`E${i}`).value?.toString()
+    const short_description = worksheet.getCell(`F${i}`).value?.toString()
+    const long_description = worksheet.getCell(`G${i}`).value?.toString()
+    const categorySlug = worksheet.getCell(`H${i}`).value?.toString()
     const data = {
       name: name,
       slug: slug,
@@ -42,10 +39,10 @@ const mapExcel2Product = async (worksheet: ExcelJS.Worksheet, handleProducts) =>
       image: image,
       short_description: short_description,
       long_description: long_description,
-      categoryId: categoryId,
+      categorySlug: categorySlug,
     }
     
-    await handleProducts(id,data)
+    await handleProducts(slug ,data)
   }
 }
 
@@ -90,6 +87,8 @@ const handler = async (request: NextRequest, handleCategory, handleProducts) => 
       return NextResponse.json({ success: false })
     }
     await mapExcel2Product(productWorksheet, handleProducts)
+  } else {
+    return NextResponse.json({ success: false }, {status: 400, statusText: 'Bad request'})
   }
   return NextResponse.json({ success: true })
 } 

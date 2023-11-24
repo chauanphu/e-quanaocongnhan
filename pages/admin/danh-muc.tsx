@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 const CategoryDashboard: React.FC = () => {
   const [method, setMethod] = useState<string>('PATCH');
   const [excel, setExcel] = useState<File>();
-
+  const url = "/api/san-pham/upload?target=categories"
   const handleExcelSelection = (event) => {
     // Check if the file's extion is excel
     if (!event.target.files[0].name.endsWith('.xlsx')) {
@@ -25,7 +25,7 @@ const CategoryDashboard: React.FC = () => {
     try {
       const data = new FormData();
       data.set('file', excel);
-      const res = await fetch(`/api/san-pham/upload?target=categories}`, {
+      const res = await fetch(url, {
         method: method,
         body: data
       });
@@ -45,7 +45,7 @@ const CategoryDashboard: React.FC = () => {
     try {
       const data = new FormData();
       data.set('images', excel);
-      const res = await fetch(`/api/images/san-pham?target=categoires}`, {
+      const res = await fetch(url, {
         method: "POST",
         body: data
       });

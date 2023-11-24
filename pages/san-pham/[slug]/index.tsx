@@ -18,7 +18,7 @@ export default function Shop({category}:ShopProps) {
       <Section title={category.name}>
           {category.products && 
             <ProductList 
-              key={category.id} 
+              key={category.slug} 
               hasTitle={false}
               category={category}
               products={category.products}/>
@@ -34,20 +34,19 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
   // Query the category with its top 8 products by slug
   const category = await prisma.category.findUnique({
     where: {
-      slug: slug.toString(),
+      slug: slug as string,
     },
     select: {
-      id: true,
       name: true,
       slug: true,
       products: {
         select: {
-          id: true,
           name: true,
           slug: true,
           image: true,
           price: true,
           sku: true,
+          categorySlug: true
         },
         take: 8,
       },

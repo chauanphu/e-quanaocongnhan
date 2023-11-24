@@ -59,7 +59,7 @@ export default function SinglePageProduct({product, related_products, htmlConten
           <>
             <h1>Sản phẩm tương tự</h1>
             <MyCarousel>
-              {related_products.map((product) => <ProductCard key={product.id} product={product}/>)}
+              {related_products.map((product) => <ProductCard key={product.slug} product={product}/>)}
             </MyCarousel>
           </>
           }
@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
   const product = await getOneProductBySlug(slug as string);
   var related_products: Product[] | null = [];
   if (product !== null) {
-     related_products = await getManyRelatedProduct(product.categoryId, product?.id)
+     related_products = await getManyRelatedProduct(product?.categorySlug, product?.slug)
   }
   const descriptionPath = path.join(process.cwd(), '_posts', 'san-pham', `${product?.slug}.md`);
   const htmlContent = await markdownToHtml(descriptionPath)

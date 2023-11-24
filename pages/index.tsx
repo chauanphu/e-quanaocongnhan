@@ -28,7 +28,7 @@ export default function Home({categories}: HomeProps) {
       </Section>
       <Section title={"Sản phẩm"} image={cart_icon}>
         {categories && categories.map((category) => (
-          <ProductList key={category.id} category={category} products={category.products}/>
+          <ProductList key={category.slug} category={category} products={category.products}/>
         ))}
         {/* <ProductCard category={category} products={}/> */}
       </Section>

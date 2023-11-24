@@ -70,7 +70,7 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
               {/* Add list of menu with active links */}
               <ul className={styles.navbar__menu}>
                   {categories && categories.map((category) => (
-                    <li key={category.id}>
+                    <li key={category.slug}>
                       <Link href={`/san-pham/${category.slug}`}>{category.name}</Link>
                     </li>
                   ))}

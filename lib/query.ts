@@ -1,22 +1,20 @@
-import { Category } from "@prisma/client";
+import { Category, Product } from "@prisma/client";
 import prisma from "./prisma";
 import { ProductWithCategory } from "./prisma";
 
 export async function getManyCategoryWithProd(prodPerCate: number) {
     const categories = await prisma.category.findMany({
         select: {
-          id: true,
           name: true,
           slug: true,
           products: {
             select: {
-              id: true,
               name: true,
               slug: true,
               image: true,
               price: true,
               sku: true,
-              categoryId: true,
+              categorySlug: true,
             },
             take: prodPerCate,
           },
@@ -37,13 +35,13 @@ export async function getOneProductBySlug(slug: string): Promise<ProductWithCate
   return product;
 }
 
-export async function getManyRelatedProduct(parentId: string, thisId: string):Promise<ProductWithCategory[] | null> {
+export async function getManyRelatedProduct(parentSlug: string, thisSlug: string):Promise<Product[] | null> {
   // Query other products with same parent category randomly
   const relatedProducts = await prisma.product.findMany({
     where: {
-      categoryId: parentId,
+      categorySlug: parentSlug,
       NOT: {
-        id: thisId,
+        slug: thisSlug,
       },
     },
     include: {
@@ -54,55 +52,55 @@ export async function getManyRelatedProduct(parentId: string, thisId: string):Pr
   return relatedProducts;
 }
 
-// Update categories by id
-export async function updateCategoryById(id: string | undefined, data: any): Promise<string> {
+// Update categories by slug
+export async function updateCategoryById(slug: string | undefined, data: any): Promise<string> {
   const updatedCategory = await prisma.category.update({
-    where: { id: id || '' },
+    where: { slug: slug || '' },
     data: data,
   });
-  return updatedCategory.id;
+  return updatedCategory.slug;
 }
 // Create new Category if not exists in database
 export async function createCategory(data: any): Promise<string> {
   const newCategory = await prisma.category.create({
     data: data,
   });
-  return newCategory.id;
+  return newCategory.slug;
 }
 
-// Update categories by id if not exists then create new category
-export async function updateOrCreateCategory(id: string | undefined, data: any): Promise<string> {
+// Update categories by slug if not exists then create new category
+export async function updateOrCreateCategory(slug: string | undefined, data: any): Promise<string> {
+  console.log(slug);
   const updatedCategory = await prisma.category.upsert({
-    where: { id: id || '' },
+    where: { slug: slug || '' },
     update: data,
     create: data,
   });
-  return updatedCategory.id;
+  return updatedCategory.slug;
 }
 
 
-// Update products by id
-export async function updateProductById(id: string | undefined, data: any): Promise<string> {
+// Update products by slug
+export async function updateProductById(slug: string | undefined, data: any): Promise<string> {
   const updatedProduct = await prisma.product.update({
-    where: { id: id || '' },
+    where: { slug: slug || '' },
     data: data,
   });
-  return updatedProduct.id;
+  return updatedProduct.slug;
 }
 // Create new Product
 export async function createProduct(data: any): Promise<string> {
   const newProduct = await prisma.product.create({
     data: data,
   });
-  console.log(newProduct.id);
-  return newProduct.id;
+  return newProduct.slug;
 }
-// Update products by id if not exists then create new product
-export async function updateOrCreateProduct(id: string | undefined, data: any): Promise<string> {
+// Update products by slug if not exists then create new product
+export async function updateOrCreateProduct(slug: string | undefined, data: any): Promise<string> {
   const updatedProduct = await prisma.product.upsert({
-    where: { id: id || '' },
+    where: { slug: slug || '' },
     update: data,
     create: data,
   });
-  return updatedProduct.id;
+  return updatedProduct.slug;
 }

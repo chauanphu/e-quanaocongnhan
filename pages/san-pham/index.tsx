@@ -20,7 +20,7 @@ export default function Shop({categories }:ShopProps) {
       <PageDescription title='Sản phẩm' description={description} keywords={keywords}/>
       <Section title='Sản phẩm'>
         {categories && categories.map((category) => (
-            <ProductList key={category.id} category={category} products={category.products}/>
+            <ProductList key={category.slug} category={category} products={category.products}/>
         ))}
       </Section>
     </>
