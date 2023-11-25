@@ -7,24 +7,26 @@ WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the Docker image
 COPY package*.json ./
+COPY prisma ./prisma/
 
 # Install dependencies in the Docker image
 RUN npm install
-
+RUN npm install @prisma/client
 # Copy the rest of your app's source code to the Docker image
 COPY . .
 
-RUN npx prisma migrate deploy
+RUN npx prisma generate --schema ./prisma/schema.prisma
 
 # Set NODE_ENV to production
 ENV NODE_ENV production
-ENV NEXT_PUBLIC_DOMAIN https://quanaocongnhan.com
 
 # Build the Next.js application for production
 RUN npm run build
 
-# Expose port 3000 for the app
-EXPOSE 3000
+# Remove pages, lib, app, components, public, styles, and lib directories
+RUN rm -rf pages lib app components styles lib interfaces
 
-# Define the command to run your app
-CMD [ "npm", "start" ]
+# Expose port 3000 for the app
+EXPOSE 3000 5555
+
+CMD npm run start & npx prisma studio

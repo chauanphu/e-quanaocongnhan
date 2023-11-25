@@ -4,6 +4,7 @@ import styles from '../styles/ProductCard.module.scss';
 import Link from 'next/link';
 
 import { Product } from '@prisma/client';
+import Image from 'next/image';
 
 interface ProductCardProps {
   product:  Product;
@@ -18,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <meta itemProp="name" content={product.name} />
                 <link itemProp="image" href={`${process.env.NEXT_PUBLIC_DOMAIN}/api/images/san-pham/${product.image}`} />
                 <meta itemProp='description' content={product.short_description ? product.short_description : ''}/>
-                <img 
+                <Image 
                     className={styles.ProductCard__image} 
                     itemProp="image"
                     src={product.image ? '/api/images/san-pham/'+ product.image : ''}  

@@ -4,8 +4,12 @@ import AdminLayout from 'components/Admin/admin-layout'
 
 function MyApp({ Component, pageProps, router  }) {
   const getLayout =
-        router.pathname.includes('/admin') ? ((page) => <AdminLayout children={page} />)
-        : ((page) => <Layout children={page} />);
+        router.pathname.includes('/admin') ? ((page) => <AdminLayout>
+            {page}
+        </AdminLayout>)
+        : ((page) => <Layout>
+            {page}
+        </Layout>);
 
     return (
         <>

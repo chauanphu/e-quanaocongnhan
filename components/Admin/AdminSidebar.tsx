@@ -1,6 +1,6 @@
 
 import { useRouter } from 'next/router';
-import styles from 'styles/admin/AdminSidebar.module.scss'
+import styles from 'styles/Admin/AdminSidebar.module.scss'
 
 import React from 'react';
 import Link from 'next/link';

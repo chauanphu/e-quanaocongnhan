@@ -10,3 +10,5 @@ LICENSE
 .gitlab
 .git
 _*
+*.drawio
+Dockerfile

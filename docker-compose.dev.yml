@@ -4,7 +4,9 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "5555:5555"
     env_file:
       - .env
+      - .env.local
     volumes:
-      - ./data:/usr/src/app/data
+      - ./data/:/usr/src/app/data/
