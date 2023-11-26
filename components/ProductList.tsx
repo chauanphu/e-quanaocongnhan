@@ -4,12 +4,11 @@ import styles from '../styles/ProductList.module.scss';
 import Link from 'next/link';
 
 import { Category, Product } from '@prisma/client';
-import { ProductWithCategory } from 'lib/prisma';
 import ProductCard from './ProductCard';
 import MyCarousel from './MyCarousel';
 
 interface ProductCardProps {
-  products: ProductWithCategory[] | Product[];
+  products: Product[];
   category: Category;
   hasTitle?: boolean;
   isCarousel?: boolean;
@@ -26,7 +25,7 @@ const ProductList: React.FC<ProductCardProps> = ({ products, category, hasTitle=
             <MyCarousel seconds={5}>
               {
                   products.map((product) => (
-                      <ProductCard key={product.id} product={product}/>
+                      <ProductCard key={product.slug} product={product}/>
                   )) 
               }
             </MyCarousel>
@@ -36,7 +35,7 @@ const ProductList: React.FC<ProductCardProps> = ({ products, category, hasTitle=
         <div className={styles.product__list}>
             {
                 products && products.length > 0 ? products.map((product) => (
-                    <ProductCard key={product.id} product={product}/>
+                    <ProductCard key={product.slug} product={product}/>
                 )) : 
                 <p>Sản phẩm đang được cập nhật</p>
             }

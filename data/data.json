@@ -54,5 +54,17 @@
     "title": "Article 2",
     "description": "Short description for Article 2",
     "tags": ["Tag3", "Tag4"]
-  }]
+  }],
+  "users": [
+    {
+      "id": 1,
+      "username": "chauanphu",
+      "password": "123123"
+    },
+    {
+      "id": 2,
+      "username": "dotuankiet",
+      "password": "123123"
+    }
+  ]
 }

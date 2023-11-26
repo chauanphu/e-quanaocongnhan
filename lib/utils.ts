@@ -30,3 +30,13 @@ export const isPageActive = (activeLink: string, pageLink: string) => {
 export const getAdminPages = () => {
    return data['admin-nav']
 }
+
+export const getUsers = () => {
+   return data['users']
+}
+
+export const validateUsers = (username: string, password: string) => {
+   const users = getUsers()
+   const user = users.find(user => user.username === username && user.password === password)
+   return user
+}
