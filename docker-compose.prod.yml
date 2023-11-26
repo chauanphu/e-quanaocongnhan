@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: nextjs_quanaocongnhan
+    container_name: nextjs_quanocongnhan
     image: chauanphu/e-quanaocongnhan-app:1.0.3
     env_file:
       - .env

@@ -2,6 +2,11 @@ import { Category, Product } from "@prisma/client";
 import prisma from "./prisma";
 import { ProductWithCategory } from "./prisma";
 
+export async function getManyCategories(): Promise<Category[]> {
+  const categories = await prisma.category.findMany();
+  return categories;
+}
+
 export async function getManyCategoryWithProd(prodPerCate: number) {
     const categories = await prisma.category.findMany({
         select: {
