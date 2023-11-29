@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/formidable": "^3.4.5",
     "axios": "^1.6.2",
     "exceljs": "^4.4.0",
     "gray-matter": "^4.0.3",

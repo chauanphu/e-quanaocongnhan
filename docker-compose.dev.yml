@@ -9,8 +9,10 @@ services:
       - ./data/:/app/data/
     ports:
       - "3000:3000"
+    environment:
+      - NEXTAUTH_URL=http://localhost:3000
+      - DATABASE_URL=postgresql://user:password@postgres_quanaocongnhan:5432/db?schema=public
     env_file:
-      - .env
       - .env.local
     links:
       - postgres

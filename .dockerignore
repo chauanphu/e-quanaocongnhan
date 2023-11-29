@@ -12,3 +12,4 @@ LICENSE
 _*
 *.drawio
 Dockerfile
+.env
