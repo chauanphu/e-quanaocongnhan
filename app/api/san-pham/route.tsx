@@ -12,3 +12,5 @@ export async function GET(request: NextRequest) {
     // Response categoryies with status code 200
     return NextResponse.json({ categories }, { status: 200 })
 }
+
+export const dynamic = "force-dynamic";

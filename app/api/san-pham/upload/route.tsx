@@ -104,3 +104,5 @@ export async function PATCH(request: NextRequest) {
 // export async function POST(request: NextRequest) {
 //   return await handler(request, createCategory, createProduct)
 // }
+
+export const dynamic = "force-dynamic";

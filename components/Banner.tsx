@@ -10,8 +10,7 @@ export default function Banner ({image, alt}: {image: any, alt: string}) {
         height={0}
         sizes="100vw"
         style={{ width: '100%', height: 'auto' }} 
-        alt={alt} 
-        priority={false}/>
+        alt={alt}/>
     </>
   );
 };

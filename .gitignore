@@ -26,6 +26,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
@@ -39,3 +40,6 @@ prisma
 # All local files
 _*/
 *.xlsx
+postgres
+db
+_docker-compose.draft.yml

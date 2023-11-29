@@ -20,6 +20,13 @@ export type ProductWithCategory = Prisma.ProductGetPayload<typeof productWithCat
 
 if (process.env.NODE_ENV === 'production') {
   prisma = new PrismaClient();
+  // Check for database connection
+  prisma.$connect().then(() => {
+    console.log('Database connected!');
+  }).catch((err) => {
+    console.log('Database connection failed!');
+    console.log(err);
+  });
 } else {
   if (!global.prisma) {
     global.prisma = new PrismaClient();

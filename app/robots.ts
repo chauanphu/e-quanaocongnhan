@@ -11,3 +11,4 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: host + '/sitemap.xml',
   }
 }
+export const dynamic = "force-dynamic";
