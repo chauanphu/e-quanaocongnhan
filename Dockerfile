@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 # 
 RUN npm install
+RUN npm install @prisma/client
 
 # Copy the rest of your app's source code to the Docker image
 COPY . .
@@ -34,7 +35,8 @@ COPY --from=base /app/public ./public
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/package.json ./package.json 
 COPY --from=base /app/next.config.js ./next.config.js
+COPY --from=base /app/prisma ./prisma
 # Expose port
 EXPOSE 3000
 
-CMD npm run start
+CMD npx prisma migrate deploy & npm run start

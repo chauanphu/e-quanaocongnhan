@@ -2,31 +2,42 @@ version: '3'
 services:
   app:
     container_name: nextjs_quanocongnhan
-    image: chauanphu/e-quanaocongnhan-app:1.0.3
+    image: chauanphu/e-quanaocongnhan-app:1.1.4
+    environment:
+      - NEXTAUTH_URL=https://quanaocongnhan.com
+      - DATABASE_URL=postgresql://user:password@postgres_quanaocongnhan:5432/db?schema=public
     env_file:
-      - .env
+      - .env.local
     volumes:
-      - ./data:/usr/src/app/data
+      - ./data/:/app/data/
+    links:
+      - postgres
+    depends_on:
+      - postgres
     networks:
       - nginx-network
-  db:
-    image: postgres
+      - internal-domain
+  postgres:
+    container_name: postgres_quanaocongnhan
+    image: postgres:16
     environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-      POSTGRES_DB: prisma
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
     volumes:
       - ./db:/var/lib/postgresql/data
+    networks:
+      - internal-domain
 
 networks:
   nginx-network:
     external: true
+  internal-domain:
+    driver: bridge
 volumes:
   data-volume:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ./webdata 
+      device: ./data 
