@@ -37,6 +37,8 @@ COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/next.config.js ./next.config.js
 COPY --from=base /app/prisma ./prisma
 # Expose port
-EXPOSE 3000
+EXPOSE 3000 5555
 
-CMD npx prisma migrate deploy & npm run start
+# RUN npm run start and npx prisma studio parraelly
+
+CMD npx prisma migrate deploy & npm run start & npx prisma studio
