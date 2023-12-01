@@ -1,25 +1,44 @@
 
+import Modal from '@components/Admin/Modal';
 import UploadForm from '@components/Admin/UploadForm';
-import React, { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 
 const CategoryDashboard: React.FC = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const [type, setType] = useState<"success" | "error">("success");
+
   const [method, setMethod] = useState<string>('PATCH');
   const [excel, setExcel] = useState<File>();
   const url = "/api/san-pham/upload?target=categories"
+
   const handleExcelSelection = (event) => {
     // Check if the file's extion is excel
     if (!event.target.files[0].name.endsWith('.xlsx')) {
-      console.error('Invalid file type');
+      popModal("Invalid file type", "error");
       return;
     }
     setExcel(event.target.files[0]);
   }
 
+  const popModal = (message: string, type: SetStateAction<"success" | "error">) => {
+    setShowModal(true);
+    setMessage(message);
+    setType(type);
+    const timer = setTimeout(() => {
+      setShowModal(false)
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }
 
   const submitExcel = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    popModal("Đang tải file excel lên...", "success")
     if (!excel) {
-      console.error('No file selected');
+      popModal("No file selected", "error");
       return 
     }
     try {
@@ -30,10 +49,16 @@ const CategoryDashboard: React.FC = () => {
         body: data
       });
       // handle the error
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok){
+        const text = await res.text()
+        popModal(text, "error")
+        return
+      } else {
+        popModal("Upload thành công", "success")
+      };
     } catch (e: any) {
       // Handle errors here
-      console.error(e);
+      popModal(e.message, "error")
     }
   };
   const submitWebp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -73,6 +98,7 @@ const CategoryDashboard: React.FC = () => {
             </select>
           </label>
         </UploadForm>
+        {showModal && <Modal message={message} type={type} onClose={() => setShowModal(false)}/>}
     </div>
   );
 };

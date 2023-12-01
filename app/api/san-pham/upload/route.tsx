@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import ExcelJS from 'exceljs'
-import { createCategory, createProduct, updateCategoryById, updateOrCreateCategory, updateOrCreateProduct, updateProductById } from 'lib/query'
+import { updateCategoryById, updateOrCreateCategory, updateOrCreateProduct, updateProductById } from 'lib/query'
 
-const mapExcel2Category = async (worksheet: ExcelJS.Worksheet, handleCategory) => {
+const mapExcel2Category = async (worksheet: ExcelJS.Worksheet, handleCategory: (slug, data) => Promise<string | null>) => {
   // Update prisma database with the data from the excel file
   for (let i = 2; i <= worksheet.rowCount; i++) {
     const slug = worksheet.getCell(`A${i}`).value?.toString()
@@ -14,7 +14,7 @@ const mapExcel2Category = async (worksheet: ExcelJS.Worksheet, handleCategory) =
       parentID: parentID,
     }
     
-    await handleCategory(slug, data)
+    return await handleCategory(slug, data)
   }
 }
 
@@ -73,20 +73,22 @@ const handler = async (request: NextRequest, handleCategory, handleProducts) => 
   // Get _target from query string
   const target = request.nextUrl.searchParams.get('target')
   if (!workbook) {
-    return NextResponse.json({ success: false })
+    return NextResponse.json({ success: false }, {status: 400, statusText: 'Excel file Not found'})
   }
   if (target === 'categories') {
     const categoryWorksheet = workbook.getWorksheet('Category')
     if (!categoryWorksheet) {
-      return NextResponse.json({ success: false })
+      return NextResponse.json({ success: false }, {status: 400, statusText: 'Category Sheet Not found'})
     }
-    await mapExcel2Category(categoryWorksheet, handleCategory)
+    const result = await mapExcel2Category(categoryWorksheet, handleCategory)
+    if (result === null) return NextResponse.json({ success: false }, {status: 500, statusText: 'Internal Server Error'})
   } else if (target === 'products') {
     const productWorksheet = workbook.getWorksheet('Product')
     if (!productWorksheet) {
-      return NextResponse.json({ success: false })
+      return NextResponse.json({ success: false }, {status: 400, statusText: 'Product Sheet Not found'})
     }
-    await mapExcel2Product(productWorksheet, handleProducts)
+    const result = await mapExcel2Product(productWorksheet, handleProducts)
+    if (result === null) return NextResponse.json({ success: false }, {status: 500, statusText: 'Internal Server Error'})
   } else {
     return NextResponse.json({ success: false }, {status: 400, statusText: 'Bad request'})
   }

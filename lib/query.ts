@@ -58,12 +58,16 @@ export async function getManyRelatedProduct(parentSlug: string, thisSlug: string
 }
 
 // Update categories by slug
-export async function updateCategoryById(slug: string | undefined, data: any): Promise<string> {
-  const updatedCategory = await prisma.category.update({
-    where: { slug: slug || '' },
-    data: data,
-  });
-  return updatedCategory.slug;
+export async function updateCategoryById(slug: string | undefined, data: any): Promise<string | null> {
+  try {
+    const updatedCategory = await prisma.category.update({
+      where: { slug: slug || '' },
+      data: data,
+    });
+    return updatedCategory.slug;
+  } catch (error) {
+    return null;
+  }
 }
 // Create new Category if not exists in database
 export async function createCategory(data: any): Promise<string> {
@@ -74,24 +78,31 @@ export async function createCategory(data: any): Promise<string> {
 }
 
 // Update categories by slug if not exists then create new category
-export async function updateOrCreateCategory(slug: string | undefined, data: any): Promise<string> {
-  console.log(slug);
-  const updatedCategory = await prisma.category.upsert({
-    where: { slug: slug || '' },
-    update: data,
-    create: data,
-  });
-  return updatedCategory.slug;
+export async function updateOrCreateCategory(slug: string | undefined, data: any): Promise<string | null> {
+  try {
+    const updatedCategory = await prisma.category.upsert({
+      where: { slug: slug || '' },
+      update: data,
+      create: data,
+    });
+    return updatedCategory.slug;
+  } catch (error) {
+    return null;
+  }
 }
 
 
 // Update products by slug
-export async function updateProductById(slug: string | undefined, data: any): Promise<string> {
-  const updatedProduct = await prisma.product.update({
-    where: { slug: slug || '' },
-    data: data,
-  });
-  return updatedProduct.slug;
+export async function updateProductById(slug: string | undefined, data: any): Promise<string | null> {
+  try {
+    const updatedProduct = await prisma.product.update({
+      where: { slug: slug || '' },
+      data: data,
+    });
+    return updatedProduct.slug;
+  } catch (error) {
+    return null;
+  }
 }
 // Create new Product
 export async function createProduct(data: any): Promise<string> {
@@ -101,11 +112,15 @@ export async function createProduct(data: any): Promise<string> {
   return newProduct.slug;
 }
 // Update products by slug if not exists then create new product
-export async function updateOrCreateProduct(slug: string | undefined, data: any): Promise<string> {
-  const updatedProduct = await prisma.product.upsert({
-    where: { slug: slug || '' },
-    update: data,
-    create: data,
-  });
-  return updatedProduct.slug;
+export async function updateOrCreateProduct(slug: string | undefined, data: any): Promise<string | null> {
+  try {
+    const updatedProduct = await prisma.product.upsert({
+      where: { slug: slug || '' },
+      update: data,
+      create: data,
+    });
+    return updatedProduct.slug;
+  } catch (error) {
+    return null
+  }
 }

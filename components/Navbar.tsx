@@ -29,7 +29,20 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
       position: 1,
       name: "Trang chủ",
       item: "https://quanaocongnhan.com/"
-    }],
+    },
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Giới thiệu",
+      item: "https://quanaocongnhan.com/gioi-thieu"
+    },
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Sản phẩm",
+      item: "https://quanaocongnhan.com/san-pham"
+    }
+  ],
   };
   
   return (

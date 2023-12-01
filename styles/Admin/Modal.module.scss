@@ -1,0 +1,55 @@
+.modal {
+    // Anchor to the bottom of the page
+    position: fixed;
+    bottom: 0;
+}
+
+.modalContent {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    min-width: 300px;
+    animation: fade-in 0.3s;
+    &.success {
+        color: green;
+    }
+    &.error {
+        color: red;
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
