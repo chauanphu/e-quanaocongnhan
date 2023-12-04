@@ -5,6 +5,7 @@ export default function Banner ({image, alt}: {image: any, alt: string}) {
   return (
     <>
       <Image
+      key={image}
         src={image}
         width={0}
         height={0}

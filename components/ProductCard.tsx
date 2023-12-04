@@ -14,11 +14,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const link = `/san-pham/${product.categorySlug}/${product.slug}`
   return (
     <>
-        {product && <Link key={product.slug} href={link} itemScope itemType="https://schema.org/Product">
+        {product && <Link key={product.slug} href={link}>
             <div className={styles.ProductCard}>
+                {/* <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+                    <meta itemProp="ratingValue" content="4.5" />
+                </div>
                 <meta itemProp="name" content={product.name} />
                 <link itemProp="image" href={`${process.env.NEXT_PUBLIC_DOMAIN}/api/images/san-pham/${product.image}`} />
-                <meta itemProp='description' content={product.short_description ? product.short_description : ''}/>
+                <meta itemProp='description' content={product.short_description ? product.short_description : ''}/> */}
                 <Image 
                     className={styles.ProductCard__image} 
                     itemProp="image"
@@ -27,18 +30,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     width={150}
                     height={150}
                 />
-                <h3 className={styles.ProductCard__title} itemProp="name">
+                <h2 className={styles.ProductCard__title} itemProp="name">
                     {product.name}
-                </h3>
+                </h2>
                 <p className={styles.ProductCard__price}>{product.price.toLocaleString('en-US')} đ</p>
-                <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                {/* <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                     <meta itemProp="priceCurrency" content="VND" />
                     <meta itemProp="price" content={product.price.toString()} />
+                    <meta itemProp="priceValidUntil" content="2022-12-31" />
                     <link itemProp="availability" href="https://schema.org/InStock" />
-                    <meta itemProp="itemCondition" content="https://schema.org/NewCondition" />
                 </div>
+                <meta itemProp="itemCondition" content="https://schema.org/NewCondition" />
                 <meta itemProp="sku" content={product.sku} />
-                {/* <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
+                <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
                     <meta itemProp="name" content={product.brand} />
                 </div> */}
             </div>

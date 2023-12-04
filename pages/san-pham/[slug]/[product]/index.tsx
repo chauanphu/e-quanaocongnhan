@@ -14,6 +14,7 @@ import MyCarousel from '@components/MyCarousel';
 import ProductCard from '@components/ProductCard';
 import path from 'path';
 import markdownToHtml from 'lib/markdownToHTML';
+import StructuredData from '@components/structured-data';
 
 type Props = {
   product?: ProductWithCategory;
@@ -25,8 +26,33 @@ export default function SinglePageProduct({product, related_products, htmlConten
   const description = product?.short_description ? product.short_description : ''
   const keywords = 'Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động'
   const contact = getContact()
+  // Add structured data for product
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product?.name,
+    image: product?.image ? `${process.env.NEXT_PUBLIC_DOMAIN}/api/images/san-pham/${product?.image}` : '',
+    description: product?.short_description,
+    sku: product?.sku,
+    mpn: product?.sku,
+    // brand: {
+    //   '@type': 'Brand',
+    //   name: product?.brand,
+    // },
+  //   review: {
+  //     // Add author
+  //     author: 'Bạch Mã',
+  //     '@type': 'Review',
+  //     reviewRating: {
+  //       '@type': 'Rating',
+  //       ratingValue: '4.5',
+  //       bestRating: '5',
+  //     },
+  // }
+  }
   return (
     <>
+      <StructuredData data={structuredData} />
       <PageDescription title={product ? product.name : 'Sản phẩm'} description={description} keywords={keywords}/>
       {product && (
         <section className='container'>
