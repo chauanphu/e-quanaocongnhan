@@ -21,7 +21,9 @@ export default function Shop({category}:ShopProps) {
               key={category.slug} 
               hasTitle={false}
               category={category}
-              products={category.products}/>
+              products={category.products}
+              isCarousel={false}
+              />
           }
       </Section>
     </>
