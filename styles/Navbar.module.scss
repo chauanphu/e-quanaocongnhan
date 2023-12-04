@@ -85,6 +85,48 @@ nav.navbar {
       transform: translateX(-50%);
     }
   }
+  .navbar__menu {
+    li.navItems {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+      a {
+        color: $color-primary-dark;
+        text-decoration: none;
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+    .navDropdown {
+      position: relative;
+      .cavet {
+        margin-left: 5px;
+      }
+      &:hover {
+        .dropdown {
+          display: block;
+        }
+      }
+      .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        //Set width to cover content
+        width: 100%;
+        background-color: $color-primary-contrast;
+        padding: 1em;
+        li {
+          margin-bottom: 1em;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+  }
   .navbar__toggle {
     display: none;
     // Remove border and add border-radius

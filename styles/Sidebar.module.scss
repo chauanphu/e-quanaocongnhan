@@ -12,6 +12,7 @@
     z-index: 999;
     text-align: center; /* added */
     padding-top: 2rem;
+    overflow-y: scroll; /* added */
     &.open {
         transform: translateX(0);
     }
@@ -19,7 +20,7 @@
         transform: translateX(-245px);
     }
     .bottom {
-        position: absolute;
+        position: static;
         bottom: 1em;
         width: 100%;
         // Add styling for button
@@ -56,6 +57,9 @@
 
 /* Styling for Link elements inside sidebar */
 .links {
+    .linkGroup {
+        padding-left: 1em;
+    }
     span.link {
         color: black;
         font-size: 12px;
@@ -97,9 +101,6 @@
             height: 20px;
             margin-right: 1em;
         }
-    }
-    span.subLink {
-        padding-left: 2em;
     }
 }
 /* Styling for the cover */

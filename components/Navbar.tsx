@@ -20,34 +20,58 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
   // Remove 'San phẩm' page
   // pages = pages.filter((page: Page) => page.name != 'Sản phẩm')
   const contacts = getContact()
+
+  // const structuredData = {
+  //   '@context': 'https://schema.org',
+  //   '@type': 'BreadcrumbList',
+  //   itemListElement: [{
+  //     "@type": "ListItem",
+  //     position: 1,
+  //     name: "Trang chủ",
+  //     item: "https://quanaocongnhan.com/"
+  //   },
+  //   {
+  //     "@type": "ListItem",
+  //     position: 1,
+  //     name: "Giới thiệu",
+  //     item: "https://quanaocongnhan.com/gioi-thieu"
+  //   },
+  //   {
+  //     "@type": "ListItem",
+  //     position: 1,
+  //     name: "Sản phẩm",
+  //     item: "https://quanaocongnhan.com/san-pham"
+  //   }
+  // ],
+  // };
   
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [{
-      "@type": "ListItem",
-      position: 1,
-      name: "Trang chủ",
-      item: "https://quanaocongnhan.com/"
-    },
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Giới thiệu",
-      item: "https://quanaocongnhan.com/gioi-thieu"
-    },
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Sản phẩm",
-      item: "https://quanaocongnhan.com/san-pham"
-    }
-  ],
+  const categoriesGenerator = () => {
+    return (
+      <>
+        {categories.map((category) => (
+          <li className={styles.navItems + ' ' + styles.navDropdown} key={category.slug}>
+            <Link href={`/san-pham/${category.slug}`}>{category.name}</Link>
+            {category.children && category.children.length > 0 && (
+              <>
+                <span className={styles.cavet}>&#9660;</span>
+                <ul className={styles.dropdown}>
+                  {category.children.map((childCategory) => (
+                    <li key={childCategory.slug}>
+                      <Link href={`/san-pham/${childCategory.slug}`}>{childCategory.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
+      </>
+    );
   };
-  
+
   return (
     <>
-      <StructuredData data={structuredData}/>
+      {/* <StructuredData data={structuredData}/> */}
       <header className={styles.header}>
         {/* Header top */}
         <nav className={styles.header__top}>
@@ -77,20 +101,16 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
         </nav>
         {/* Main menu */}
         <nav className={styles.navbar  + ' container'}>
-              <div className={styles.navbar__logo}>
-                <Image src={logo} alt="Icon" height={100} />
-              </div>
-              {/* Add list of menu with active links */}
-              <ul className={styles.navbar__menu}>
-                  {categories && categories.map((category) => (
-                    <li key={category.slug}>
-                      <Link href={`/san-pham/${category.slug}`}>{category.name}</Link>
-                    </li>
-                  ))}
-              </ul>
-              <button className={styles.navbar__toggle} onClick={openSidebar}>
-                <Image src={burger_icon} alt="Menu Icon" />
-              </button>
+          <div className={styles.navbar__logo}>
+            <Link href="/"><Image src={logo} alt="Icon" height={100} /></Link>
+          </div>
+          {/* Add list of menu with active links */}
+          <ul className={styles.navbar__menu}>
+              {categories && categoriesGenerator()}
+          </ul>
+          <button className={styles.navbar__toggle} onClick={openSidebar}>
+            <Image src={burger_icon} alt="Menu Icon" />
+          </button>
         </nav>
       </header>
     </>

@@ -9,7 +9,7 @@ import { Product } from '@prisma/client';
 import Image from 'next/image';
 import styles from 'styles/SinglePageProduct.module.scss'
 import Link from 'next/link';
-import home_icon from 'public/images/home-icon.svg'
+import phone_icon from 'public/images/phone-icon.png'
 import MyCarousel from '@components/MyCarousel';
 import ProductCard from '@components/ProductCard';
 import path from 'path';
@@ -69,7 +69,7 @@ export default function SinglePageProduct({product, related_products, htmlConten
               {product.short_description && <p className={styles.description}>{product.short_description}</p>}
               <div className={styles.contacts}>
                 <Link href='tel:0945316280'>
-                  <Image src={home_icon} alt="Icon"/>
+                  <Image src={phone_icon} alt="Icon" width={30} height={30}/>
                   <div className={styles.contactInfo}>
                     <p>GỌI NGAY {contact.phone}</p>
                     <p>Để đặt hàng</p>

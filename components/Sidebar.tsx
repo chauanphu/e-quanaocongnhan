@@ -5,13 +5,14 @@ import Image from 'next/image'
 
 // Icons
 import styles from '../styles/Sidebar.module.scss'
-import home_icon from '../public/images/home-icon.svg'
+import phone_icon from '../public/images/phone-icon.png'
 import zalo_icon from '../public/images/zalo-icon.svg'
 
 // import User from 'models/User';
 import { CategoryWithSub } from 'lib/prisma';
 
 import { getContact, getPages, isPageActive } from 'lib/utils';
+import { Category } from '@prisma/client';
 
 type SidebarProps = {
     open?: boolean;
@@ -25,25 +26,29 @@ type SidebarProps = {
 // }
 
 type LinkGeneratorProps = {
-    subPages?: CategoryWithSub[];
-    prefix: string;
+    subPages?: CategoryWithSub[] | Category[];
     onSelection: () => void;
 }
 
-function LinkGenerator({subPages, prefix, onSelection}: LinkGeneratorProps) {
+function LinkGenerator({subPages, onSelection}: LinkGeneratorProps) {
     return (
         <>
             {subPages && subPages.map((subPage, index) => (
-                <span key={subPage.slug} className={`${styles.link} ${styles.subLink} `}>
-                    <Link 
-                        key={index} 
-                        href={prefix + subPage.slug} 
-                        onClick={()=> {
-                        onSelection() 
-                        }}>
-                        {subPage.name}
-                    </Link>
-                </span>
+                <div className={styles.linkGroup}>
+                    <span key={subPage.slug} className={`${styles.link} ${styles.subLink} `}>
+                        <Link 
+                            key={index} 
+                            href={'/san-pham/' + subPage.slug} 
+                            onClick={()=> {
+                            onSelection() 
+                            }}>
+                            {subPage.name}
+                        </Link>
+                    </span>
+                    {   subPage.children &&
+                        <LinkGenerator subPages={subPage.children} onSelection={onSelection}/>
+                    }
+                </div>
             ))}
         </>
     );
@@ -74,7 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open = false, onSelection, handleClos
                                     <button type='button'>&#9660;</button>
                                 }
                             </span>
-                            <LinkGenerator subPages={page.subPages} prefix={page.link} onSelection={onSelection}/>
+                            <LinkGenerator subPages={page.subPages} onSelection={onSelection}/>
                         </div>
                         
                     ))}
@@ -82,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open = false, onSelection, handleClos
                 {/* This is contact info */}
                 <div className={styles.bottom}>
                     <Link href='tel:0945316280'>
-                        <Image src={home_icon} alt="Icon"/> {contact.phone}
+                        <Image src={phone_icon} alt="Icon"/> {contact.phone}
                     </Link>
                     <Link href='https://zalo.me/0945316280' rel="noopener noreferrer" target="_blank">
                         <Image src={zalo_icon} height={20} alt="Icon"/> {contact.phone}
