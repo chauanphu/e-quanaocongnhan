@@ -33,6 +33,7 @@ export default function Home({categories}: HomeProps) {
         {/* <ProductCard category={category} products={}/> */}
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
+        Hello
         {/* <ArticleCarousel articles={articles} seconds={3}/> */}
       </Section>
       <Section title={"Khách hàng"} image={customer_icon}>

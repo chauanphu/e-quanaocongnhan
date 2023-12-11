@@ -26,25 +26,82 @@ export async function getManyCategoriesWithSub() {
   return categories;
 }
 
-export async function getManyCategoryWithProd(prodPerCate: number) {
+/**
+ * Retrieves products for a given category.
+ * 
+ * @param category - The category object.
+ * @returns An array of products.
+ */
+async function getProducts(category) {
+  // Query for the category's products
+  const products = await prisma.product.findMany({
+    where: { categorySlug: category.slug },
+    take: 8,
+    select: {
+      name: true,
+      slug: true,
+      image: true,
+      sku: true,
+      price: true,
+      categorySlug: true,
+    },
+  });
+
+  // Query for the category's child categories
+  const childCategories = await prisma.category.findMany({ where: { parentSlug: category.slug } });
+
+  // If the category has child categories, recursively fetch their products
+  let childProducts: any[] = [];
+  if (childCategories.length > 0) {
+    childProducts = await Promise.all(childCategories.map(childCategory => getProducts(childCategory)));
+  }
+
+  // Combine the products of the parent category and its child categories
+  const combinedProducts = [...products, ...childProducts.flat()];
+
+  return combinedProducts;
+}
+
+/**
+ * Retrieves multiple categories with their associated products.
+ * @param page - The page number to retrieve the categories from.
+ * @returns A promise that resolves to an array of categories with their associated products.
+ */
+export async function getManyCategoryWithProd(page: number) {
   const categories = await prisma.category.findMany({
     select: {
       name: true,
       slug: true,
-      products: {
-        select: {
-          name: true,
-          slug: true,
-          image: true,
-          price: true,
-          sku: true,
-          categorySlug: true,
-        },
-        take: prodPerCate,
-      },
+    },
+    where: {
+      parentSlug: {
+        not: null
+      }
+    }
+  });
+
+  // Map over the categories to fetch their products
+  const categoriesWithProducts = await Promise.all(categories.map(async (category) => {
+    const products = await getProducts(category);
+    return { ...category, products };
+  }));
+  return categoriesWithProducts;
+}
+
+export async function getOneCategoryWithProd(slug: string) {
+  const category = await prisma.category.findUnique({
+    where: {
+      slug,
+    },
+    select: {
+      name: true,
+      slug: true,
     },
   });
-  return categories;
+
+  const products = await getProducts(category);
+
+  return { ...category, products };
 }
 
 export async function getOneProductBySlug(
