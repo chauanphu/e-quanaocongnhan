@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
 import requireImage from 'lib/requireImage';
 
 export default async function handler(

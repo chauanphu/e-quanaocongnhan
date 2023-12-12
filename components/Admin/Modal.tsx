@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from 'styles/Admin/Modal.module.scss';
 type ModalProps = {
   message: string;
@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ message, type, onClose }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <div className={styles.modal}>
