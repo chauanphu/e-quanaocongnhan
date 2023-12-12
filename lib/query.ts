@@ -10,7 +10,7 @@ export async function getManyCategories(): Promise<Category[]> {
 export async function getManyCategoriesWithSub() {
   const categories = await prisma.category.findMany({
     where: {
-      parentSlug: null
+      parentSlug: null,
     },
     select: {
       name: true,
@@ -28,7 +28,7 @@ export async function getManyCategoriesWithSub() {
 
 /**
  * Retrieves products for a given category.
- * 
+ *
  * @param category - The category object.
  * @returns An array of products.
  */
@@ -36,7 +36,6 @@ async function getProducts(category) {
   // Query for the category's products
   const products = await prisma.product.findMany({
     where: { categorySlug: category.slug },
-    take: 8,
     select: {
       name: true,
       slug: true,
@@ -48,12 +47,16 @@ async function getProducts(category) {
   });
 
   // Query for the category's child categories
-  const childCategories = await prisma.category.findMany({ where: { parentSlug: category.slug } });
+  const childCategories = await prisma.category.findMany({
+    where: { parentSlug: category.slug },
+  });
 
   // If the category has child categories, recursively fetch their products
   let childProducts: any[] = [];
   if (childCategories.length > 0) {
-    childProducts = await Promise.all(childCategories.map(childCategory => getProducts(childCategory)));
+    childProducts = await Promise.all(
+      childCategories.map((childCategory) => getProducts(childCategory))
+    );
   }
 
   // Combine the products of the parent category and its child categories
@@ -62,12 +65,7 @@ async function getProducts(category) {
   return combinedProducts;
 }
 
-/**
- * Retrieves multiple categories with their associated products.
- * @param page - The page number to retrieve the categories from.
- * @returns A promise that resolves to an array of categories with their associated products.
- */
-export async function getManyCategoryWithProd(page: number) {
+export async function getManyCategoryWithProd() {
   const categories = await prisma.category.findMany({
     select: {
       name: true,
@@ -75,20 +73,33 @@ export async function getManyCategoryWithProd(page: number) {
     },
     where: {
       parentSlug: {
-        not: null
-      }
-    }
+        not: null,
+      },
+    },
   });
 
   // Map over the categories to fetch their products
-  const categoriesWithProducts = await Promise.all(categories.map(async (category) => {
-    const products = await getProducts(category);
-    return { ...category, products };
-  }));
+  const categoriesWithProducts = await Promise.all(
+    categories.map(async (category) => {
+      const products = await getProducts(category);
+      return { ...category, products };
+    })
+  );
   return categoriesWithProducts;
 }
 
-export async function getOneCategoryWithProd(slug: string) {
+/**
+ * Retrieves a category with its associated products.
+ * @param slug - The slug of the category.
+ * @param page - The page number for pagination (default: 1).
+ * @param limit - The maximum number of products per page (default: 8).
+ * @returns A promise that resolves to an object containing the category details, paginated products, and total number of products.
+ */
+export async function getOneCategoryWithProd(
+  slug: string,
+  page: number = 1,
+  limit: number = 8
+) {
   const category = await prisma.category.findUnique({
     where: {
       slug,
@@ -100,8 +111,13 @@ export async function getOneCategoryWithProd(slug: string) {
   });
 
   const products = await getProducts(category);
-
-  return { ...category, products };
+  const start = (page - 1) * limit;
+  const end = products.length > start + limit ? start + limit : products.length;
+  const result = {
+    ...category,
+    products: products.slice(start, end),
+  };
+  return { category: result, total: products.length };
 }
 
 export async function getOneProductBySlug(

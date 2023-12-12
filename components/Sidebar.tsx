@@ -34,7 +34,7 @@ function LinkGenerator({subPages, onSelection}: LinkGeneratorProps) {
     return (
         <>
             {subPages && subPages.map((subPage, index) => (
-                <div className={styles.linkGroup}>
+                <div key={index} className={styles.linkGroup}>
                     <span key={subPage.slug} className={`${styles.link} ${styles.subLink} `}>
                         <Link 
                             key={index} 
