@@ -45,8 +45,8 @@ export default function Home({categories}: HomeProps) {
 
 // Config as server side rendering
 export async function getServerSideProps() {
-  // Query all categories with their top 4 products
-  const categories = await getManyCategoryWithProd(4)
+  // Query all categories with their top 8 products
+  const categories = await getManyCategoryWithProd(8)
   return {
     props: {categories},
     // revalidate: 10,

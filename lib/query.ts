@@ -32,7 +32,7 @@ export async function getManyCategoriesWithSub() {
  * @param category - The category object.
  * @returns An array of products.
  */
-async function getProducts(category) {
+async function getProducts(category, limit?) {
   // Query for the category's products
   const products = await prisma.product.findMany({
     where: { categorySlug: category.slug },
@@ -44,6 +44,8 @@ async function getProducts(category) {
       price: true,
       categorySlug: true,
     },
+    // If a limit is provided, limit the number of products returned
+    take: limit,
   });
 
   // Query for the category's child categories
@@ -65,7 +67,7 @@ async function getProducts(category) {
   return combinedProducts;
 }
 
-export async function getManyCategoryWithProd() {
+export async function getManyCategoryWithProd(limit) {
   const categories = await prisma.category.findMany({
     select: {
       name: true,
@@ -81,7 +83,7 @@ export async function getManyCategoryWithProd() {
   // Map over the categories to fetch their products
   const categoriesWithProducts = await Promise.all(
     categories.map(async (category) => {
-      const products = await getProducts(category);
+      const products = await getProducts(category, limit);
       return { ...category, products };
     })
   );

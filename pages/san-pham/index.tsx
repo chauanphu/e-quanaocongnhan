@@ -29,7 +29,7 @@ export default function Shop({categories }:ShopProps) {
 
 export async function getServerSideProps() {
   // Query all categories with their top 8 products
-  const categories = await getManyCategoryWithProd(4)
+  const categories = await getManyCategoryWithProd(8)
   return {
     props: {categories},
     // revalidate: 10,
