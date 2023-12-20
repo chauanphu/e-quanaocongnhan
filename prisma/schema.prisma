@@ -20,6 +20,7 @@ model Product {
   slug              String   @id
   name              String
   sku               String
+  rating            Float?
   image             String?
   short_description String?
   long_description  String?
