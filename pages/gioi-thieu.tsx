@@ -30,8 +30,7 @@ export default function AboutUs({htmlContent}:Props) {
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
   const slug = params?.product || '';
   // // Query the category with its top 8 products by slug
-
-  const descriptionPath = path.join(process.cwd(), '_posts', 'gioi-thieu.md');
+  const descriptionPath = path.join(process.cwd(), 'data', '_posts', 'gioi-thieu.md');
   const htmlContent = await markdownToHtml(descriptionPath)
   return {
     props: {htmlContent},
