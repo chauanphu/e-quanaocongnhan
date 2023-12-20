@@ -32,7 +32,7 @@ export async function getManyCategoriesWithSub() {
  * @param category - The category object.
  * @returns An array of products.
  */
-async function getProducts(category, limit?) {
+async function getProducts(category, limit?): Promise<Product[]> {
   // Query for the category's products
   const products = await prisma.product.findMany({
     where: { categorySlug: category.slug },
@@ -40,6 +40,7 @@ async function getProducts(category, limit?) {
       name: true,
       slug: true,
       image: true,
+      rating: true,
       sku: true,
       price: true,
       categorySlug: true,
@@ -173,6 +174,20 @@ export async function getManyRelatedProduct(
     take: 4,
   });
   return relatedProducts;
+}
+
+// Create a function get all slugs including, categories, subcategories and products for sitemap
+export async function getAllSlugs(): Promise<string[]> {
+  const categories = await getManyCategories();
+  let slugs: string[] = [];
+  for (const category of categories) {
+    const products = await getProducts(category);
+    slugs.push(category.slug);
+    for (const product of products) {
+      slugs.push(category.slug + '/' + product.slug);
+    }
+  }
+  return slugs;
 }
 
 // Update categories by slug

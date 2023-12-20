@@ -1,29 +1,17 @@
-import { getManyCategories } from "lib/query";
+import { getAllSlugs } from "lib/query";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const host = process.env.NEXT_PUBLIC_DOMAIN as string;
-  const categories = await getManyCategories();
-  const categorySlugs = categories.map((category) => ({
-    url: host + "/san-pham/" + category.slug,
+  const slugs = await getAllSlugs();
+  const categorySlugs = slugs.map((slug) => ({
+    url: host + "/san-pham/" + slug,
     lastModified: new Date(),
     changeFrequency: "weekly",
-    priority: 0.7,
+    priority: 0.8,
   }));
   const routes = categorySlugs as MetadataRoute.Sitemap;
   return [
-    {
-      url: host,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    {
-      url: host + "/san-pham",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
     // Add routes
     {
       url: host,
