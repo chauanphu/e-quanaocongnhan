@@ -46,6 +46,9 @@ async function getProducts(category, limit?) {
     },
     // If a limit is provided, limit the number of products returned
     take: limit,
+    orderBy: {
+      sku: "asc",
+    },
   });
 
   // Query for the category's child categories
@@ -74,9 +77,25 @@ export async function getManyCategoryWithProd(limit) {
       slug: true,
     },
     where: {
-      parentSlug: {
-        not: null,
-      },
+      OR: [
+        {
+          parentSlug: {
+            not: null,
+          },
+        },
+        {
+          AND: [
+            {
+              parentSlug: null,
+            },
+            {
+              children: {
+                none: {},
+              },
+            },
+          ],
+        }
+      ],
     },
   });
 
