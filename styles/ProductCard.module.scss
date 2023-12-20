@@ -40,7 +40,14 @@
     color: green;
     margin-bottom: 0.5rem;
   }
-
+  .ProductCard__rating {
+    display: flex;
+    align-items: center;
+    span{
+      font-size: 1rem;
+      
+    }
+  }
   .ProductCard__description {
     font-size: 1rem;
     text-align: center;

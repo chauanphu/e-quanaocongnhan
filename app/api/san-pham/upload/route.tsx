@@ -43,6 +43,8 @@ const mapExcel2Product = async (worksheet: ExcelJS.Worksheet, handleProducts) =>
       name: name,
       slug: slug,
       sku: sku,
+      // Random 1 digit decimal from 4 to 5
+      rating: Math.floor(Math.random() * 10) / 10 + 4,
       price: price,
       image: image as string | null,
       short_description: short_description as string | null,

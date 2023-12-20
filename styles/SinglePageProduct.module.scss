@@ -49,6 +49,11 @@
         font-weight: bold;
         color: green;
     }
+    .rating {
+      display: flex;
+      font-size: 16px;
+      // Add margin left to text
+    }
     .contacts {
         // Anchor contacts at the bottom of the container
         a {

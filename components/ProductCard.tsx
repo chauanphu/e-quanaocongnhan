@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/ProductCard.module.scss";
 import Link from "next/link";
-import StarRatings from 'react-rating-stars-component';
+import StarRatings from "react-rating-stars-component";
 
 import { Product } from "@prisma/client";
 import Image from "next/image";
@@ -31,7 +31,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <p className={styles.ProductCard__price}>
               {product.price.toLocaleString("en-US")} đ
             </p>
-            <StarRatings value={4} numberOfStars={5} name="rating" editing={false}/>
+            <span className={styles.ProductCard__rating}>
+              <StarRatings
+                value={product.rating ? product.rating : 4.5}
+                numberOfStars={5}
+                name="rating"
+                editing={false}
+              />
+              ({product.rating ? product.rating : 4.5})
+            </span>
             {/* <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                     <meta itemProp="priceCurrency" content="VND" />
                     <meta itemProp="price" content={product.price.toString()} />

@@ -97,15 +97,15 @@ export default function SinglePageProduct({
               <p className={styles.price}>
                 {product.price.toLocaleString("en-US")} đ
               </p>
-              {/* {product.rating && ( */}
-              <StarRatings
-                value={4}
-                numberOfStars={5}
-                name="rating"
-                editing={false}
-              />
-
-              {/* )} */}
+              <span className={styles.rating}>
+                <StarRatings
+                  value={product.rating ? product.rating : 4.5}
+                  numberOfStars={5}
+                  name="rating"
+                  editing={false}
+                />
+                ({product.rating ? product.rating : 4.5})
+              </span>
               {product.short_description && (
                 <p className={styles.description}>
                   {product.short_description}
