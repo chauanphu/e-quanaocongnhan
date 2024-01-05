@@ -83,7 +83,7 @@ export default function Navbar({openSidebar, categories} : {openSidebar: () => v
               </li>
               <li>
                   <Image src={phone_icon} alt="Icon" height={16} />
-                  {contacts.phone}
+                  {contacts.phone.display}
               </li>
               <li>
                 <Image src={home_icon} alt="Icon" height={16} />

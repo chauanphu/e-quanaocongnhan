@@ -20,8 +20,8 @@ interface HomeProps {
 export default function Home({categories}: HomeProps) {
   return (
     <>
-      <PageDescription title='Trang chủ' keywords='Trần Gia Phát, Trang chủ, đồng phục'/>
-      <Banner image={'/api/images/banner/banner-main.webp'} alt='Banner'/>
+      <PageDescription title='Trang chủ' keywords='Châu Gia Phát, Trang chủ, đèn giao thông, an toàn giao thông'/>
+      <Banner image={['/api/images/banner/banner-main.webp', '/api/images/banner/banner-1.webp']} isCarousel={true} alt='Banner'/>
       <Section title={"Giới thiệu"} image={about_us_icon} contrast_bg={true}>
         <Banner image={process_banner} alt="Qui trình đặt hàng"/>
       </Section>

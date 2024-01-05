@@ -1,9 +1,14 @@
-
 {
   "contact": {
+    "company_name": "Công ty TNHH May mặc Trần Gia Phát",
+    "director": "Mrs. Linh",
     "address": "48/5 Thái Thị Giữ, xã Bà Điểm, huyện Hóc Môn, TP HCM",
     "email": "bhldtranlinh@gmail.com",
-    "phone": "0945 316 280"
+    "phone": {
+      "number": "0945316280",
+      "display": "0945.316.280",
+      "full": "0945 9316 280 ( Mrs Linh )"
+    }
   },
   "main-nav": [
     {
@@ -41,18 +46,20 @@
       "link": "/admin/blogs/"
     }
   ],
-  "articles": [{
-    "id": 1,
-    "image": "/path/to/image1.jpg",
-    "title": "Article 1",
-    "description": "Short description for Article 1",
-    "tags": ["Tag1", "Tag2"]
-  },
-  {
-    "id": 2,
-    "image": "/path/to/image2.jpg",
-    "title": "Article 2",
-    "description": "Short description for Article 2",
-    "tags": ["Tag3", "Tag4"]
-  }]
+  "articles": [
+    {
+      "id": 1,
+      "image": "/path/to/image1.jpg",
+      "title": "Article 1",
+      "description": "Short description for Article 1",
+      "tags": ["Tag1", "Tag2"]
+    },
+    {
+      "id": 2,
+      "image": "/path/to/image2.jpg",
+      "title": "Article 2",
+      "description": "Short description for Article 2",
+      "tags": ["Tag3", "Tag4"]
+    }
+  ]
 }

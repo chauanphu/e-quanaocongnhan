@@ -5,7 +5,7 @@ import styles from '../styles/Carousel.module.scss';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-const responsive = {
+const default_responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 4,
@@ -23,12 +23,13 @@ const responsive = {
   }
 }
 
-const MyCarousel = ({ children, seconds=3 }) => {
+const MyCarousel = ({ children, seconds=3, responsive=default_responsive, withDot=false }) => {
   return (
     <Carousel
     className={styles.carousel}
       additionalTransfrom={0}
-      arrows
+      arrows={!withDot}
+      autoPlay={true}
       autoPlaySpeed={seconds*1000}
       centerMode={false}
       containerClass="container-with-dots"
@@ -45,8 +46,7 @@ const MyCarousel = ({ children, seconds=3 }) => {
       rewind={false}
       rewindWithAnimation={false}
       rtl={false}
-      shouldResetAutoplay
-      showDots={false}
+      showDots={withDot}
       sliderClass=""
       slidesToSlide={1}
       swipeable

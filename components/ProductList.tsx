@@ -22,7 +22,7 @@ const ProductList: React.FC<ProductCardProps> = ({ products, category, hasTitle=
         </Link>}
         {isCarousel ? 
            products && products.length > 0 ?
-            <MyCarousel seconds={5}>
+            <MyCarousel seconds={3}>
               {
                   products.map((product) => (
                       <ProductCard key={product.slug} product={product}/>

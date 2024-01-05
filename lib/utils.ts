@@ -4,11 +4,7 @@ import data from "../data/data.json"
 export function getPages(): Page[] {
    return data['main-nav']
 }
-export function getContact(): {
-   address: string;
-   email: string;
-   phone: string;
-} {
+export function getContact() {
    return data['contact']
 
 }

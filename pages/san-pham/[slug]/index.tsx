@@ -7,6 +7,7 @@ import ProductList from "@components/ProductList";
 import { getOneCategoryWithProd } from "lib/query";
 import Pagniation from "@components/Pagniation";
 import { useRouter } from "next/router";
+import Breadcrumbs from "@components/Breadcrumbs";
 interface ShopProps {
   category: CategoryWithProducts;
   totalProduct: number;
@@ -21,6 +22,11 @@ export default function Shop({ category, totalProduct }: ShopProps) {
     "Trần Gia Phát chuyên may mặc đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động,...";
   const keywords =
     "Trần Gia Phát, đồng phục công nhân, đồng phục áo thun, đồng phục đầu bếp, thiết bị bảo hộ lao động";
+    const links = [
+      {url: "/", label: "Trang chủ"},
+      {url: "/san-pham", label: "Sản phẩm"},
+      {url: `/san-pham/${category.slug}`, label: category.name}
+    ]
   return (
     <>
       <PageDescription
@@ -28,6 +34,7 @@ export default function Shop({ category, totalProduct }: ShopProps) {
         description={description}
         keywords={keywords}
       />
+      <Breadcrumbs breadcrumbs={links}/>
       <Section title={category.name}>
         {category.products && (
           <>
@@ -52,6 +59,7 @@ export default function Shop({ category, totalProduct }: ShopProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.params?.slug || "";
   const page = context.query.page || 1;
+  
   // Query the category with its top 12 products by slug
   const result = await getOneCategoryWithProd(
     slug as string,
