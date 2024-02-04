@@ -29,7 +29,6 @@ export default function Home({categories}: HomeProps) {
         {categories && categories.map((category) => (
           <ProductList key={category.slug} category={category} products={category.products}/>
         ))}
-        {/* <ProductCard category={category} products={}/> */}
       </Section>
       <Section title={"Tin tức"} image={articles_icon} contrast_bg={true}>
         Hello
@@ -48,6 +47,5 @@ export async function getServerSideProps() {
   const categories = await getManyCategoryWithProd(8)
   return {
     props: {categories},
-    // revalidate: 10,
   };
 }

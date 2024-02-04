@@ -7,7 +7,6 @@ import phone_icon from '../public/images/phone-icon.svg'
 import home_icon from '../public/images/home-icon.svg'
 import burger_icon from '../public/images/Menu.svg'
 import logo from '../public/images/logo.png'
-import StructuredData from './structured-data'
 import { CategoryWithSub } from 'lib/prisma'
 import { isPageActive, getPages, getContact } from 'lib/utils'
 

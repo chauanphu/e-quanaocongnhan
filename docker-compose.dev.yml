@@ -9,7 +9,6 @@ services:
       - ./data/:/app/data/
     ports:
       - "3000:3000"
-      - "5555:5555"
     environment:
       - NEXTAUTH_URL=http://localhost:3000
       - DATABASE_URL=postgresql://user:password@postgres_quanaocongnhan:5432/db?schema=public
@@ -24,6 +23,7 @@ services:
   postgres:
     container_name: postgres_quanaocongnhan
     image: postgres:16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -34,7 +34,19 @@ services:
       - ./db:/var/lib/postgresql/data
     networks:
       - internal-domain
-
+  pgAdmin:
+    container_name: pgadmin_quanaocongnhan
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@quanaocongnhan.com
+      PGADMIN_DEFAULT_PASSWORD: 258456C@p
+    ports:
+      - "5555:80"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    networks:
+      - internal-domain
 networks:
   internal-domain:
     driver: bridge

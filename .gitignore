@@ -42,3 +42,4 @@ _*/
 postgres
 db
 _docker-compose.draft.yml
+pgadmin

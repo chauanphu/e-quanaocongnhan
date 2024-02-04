@@ -28,7 +28,20 @@ services:
       - ./db:/var/lib/postgresql/data
     networks:
       - internal-domain
-
+  pgAdmin:
+    container_name: pgadmin_quanaocongnhan
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@quanaocongnhan.com
+      PGADMIN_DEFAULT_PASSWORD: 258456C@p
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - nginx-network
+      - internal-domain
 networks:
   nginx-network:
     external: true

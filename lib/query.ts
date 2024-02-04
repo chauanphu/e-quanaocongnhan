@@ -34,6 +34,7 @@ export async function getManyCategoriesWithSub() {
  */
 async function getProducts(category, limit?): Promise<Product[]> {
   // Query for the category's products
+  console.log("Fetching products for category: " + category.slug)
   const products = await prisma.product.findMany({
     where: { categorySlug: category.slug },
     select: {
@@ -107,6 +108,7 @@ export async function getManyCategoryWithProd(limit) {
       return { ...category, products };
     })
   );
+  console.log("Done!")
   return categoriesWithProducts;
 }
 

@@ -115,6 +115,7 @@ nav.navbar {
         left: 0;
         //Set width to cover content
         width: 100%;
+        min-width: 10rem;
         background-color: $color-primary-contrast;
         padding: 1em;
         border-radius: 1em;

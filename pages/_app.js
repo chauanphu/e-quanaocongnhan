@@ -1,21 +1,12 @@
-import '../styles/globals.scss'
-import Layout from '../components/layout'
-import AdminLayout from 'components/Admin/admin-layout'
+import "../styles/globals.scss";
+import Layout from "../components/layout";
 
-function MyApp({ Component, pageProps, router  }) {
-  const getLayout =
-        router.pathname.includes('/admin') ? ((page) => <AdminLayout>
-            {page}
-        </AdminLayout>)
-        : ((page) => <Layout>
-            {page}
-        </Layout>);
-
-    return (
-        <>
-            {getLayout(<Component {...pageProps} />, pageProps)}
-        </>
-    );
+function MyApp({ Component, pageProps }) {
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
-export default MyApp
+export default MyApp;
